@@ -1,0 +1,202 @@
+[
+  {
+    "ref": "ans_c027712b-b9bf-43a3-9391-bef563278bb8",
+    "keyword": "key_83f83ca2-5347-4edd-a2ab-5ead3dd05ff2",
+    "answer": "Por favor, elija una de las siguientes opciones 😁\r\n\r\nOpcion 1 - Menu\r\nOpcion 2 - Reservar mesas\r\nOpcion 3 - Hacer consultas\r\n\r\n\r\nOpcion 0 - salir",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": true,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": true
+    },
+    "refSerialize": "214312255b9ba2a1bca3cd2c79cc73a2",
+    "from": "5493704524749"
+  },
+  {
+    "ref": "2196dd89-1890-4569-b8ae-ff31f1fefe08",
+    "keyword": "214312255b9ba2a1bca3cd2c79cc73a2",
+    "answer": "1",
+    "options": {},
+    "from": "5493704524749",
+    "refSerialize": "290236b1d481a790a200ea6e94b2122a"
+  },
+  {
+    "ref": "ans_fd014a57-b4fc-4711-a36a-286267da7f54",
+    "keyword": "key_0720fffa-c9e2-4a5d-95ce-720e2f7bbb33",
+    "answer": "Este es nuestro menú de comidas 🍴🤗",
+    "options": {
+      "media": "https://img.freepik.com/vector-gratis/menu-restaurante-moderno-comida-rapida_52683-48982.jpg?semt=ais_hybrid",
+      "buttons": [],
+      "capture": false,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": false
+    },
+    "refSerialize": "61095bba5bfe67f472a02b2a80bd237f",
+    "from": "5493704524749"
+  },
+  {
+    "ref": "b87ae772-af4a-45ef-8235-388986f47139",
+    "keyword": "61095bba5bfe67f472a02b2a80bd237f",
+    "answer": "Menu",
+    "options": {},
+    "from": "5493704524749",
+    "refSerialize": "1943ef5752ef89f46d7b613aaf765c9b"
+  },
+  {
+    "ref": "ans_c027712b-b9bf-43a3-9391-bef563278bb8",
+    "keyword": "key_83f83ca2-5347-4edd-a2ab-5ead3dd05ff2",
+    "answer": "Por favor, elija una de las siguientes opciones 😁\r\n\r\nOpcion 1 - Menu\r\nOpcion 2 - Reservar mesas\r\nOpcion 3 - Hacer consultas\r\n\r\n\r\nOpcion 0 - salir",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": true,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": true
+    },
+    "refSerialize": "214312255b9ba2a1bca3cd2c79cc73a2",
+    "from": "5493704524749"
+  },
+  {
+    "ref": "2d4f8646-a326-4684-b939-d4ff85332c04",
+    "keyword": "214312255b9ba2a1bca3cd2c79cc73a2",
+    "answer": "2",
+    "options": {},
+    "from": "5493704524749",
+    "refSerialize": "2294c3d08b53a6effa5df696a15b9d30"
+  },
+  {
+    "ref": "ans_a79bd716-c82a-4988-9638-90ad368f2dbc",
+    "keyword": "key_0cb9addf-6f9a-49cb-84b1-db5783d31478",
+    "answer": "📅 *Reservas* 📅",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": false
+    },
+    "refSerialize": "b96094d52d20db0a19f3c282269d4515",
+    "from": "5493704524749"
+  },
+  {
+    "ref": "ans_ca80da99-0713-4370-9b45-03a5aa013a06",
+    "keyword": "ans_a79bd716-c82a-4988-9638-90ad368f2dbc",
+    "answer": "www.reservasfalsas.com",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": false
+    },
+    "refSerialize": "9e87a9c6fdbd318bbd34827a270c71c8",
+    "from": "5493704524749"
+  },
+  {
+    "ref": "61162f7d-020a-413d-aebc-7d1f30a55786",
+    "keyword": "9e87a9c6fdbd318bbd34827a270c71c8",
+    "answer": "Menu",
+    "options": {},
+    "from": "5493704524749",
+    "refSerialize": "1943ef5752ef89f46d7b613aaf765c9b"
+  },
+  {
+    "ref": "ans_c027712b-b9bf-43a3-9391-bef563278bb8",
+    "keyword": "key_83f83ca2-5347-4edd-a2ab-5ead3dd05ff2",
+    "answer": "Por favor, elija una de las siguientes opciones 😁\r\n\r\nOpcion 1 - Menu\r\nOpcion 2 - Reservar mesas\r\nOpcion 3 - Hacer consultas\r\n\r\n\r\nOpcion 0 - salir",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": true,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": true
+    },
+    "refSerialize": "214312255b9ba2a1bca3cd2c79cc73a2",
+    "from": "5493704524749"
+  },
+  {
+    "ref": "39ca3436-a822-41cb-900c-ed57ee3084a3",
+    "keyword": "214312255b9ba2a1bca3cd2c79cc73a2",
+    "answer": "3",
+    "options": {},
+    "from": "5493704524749",
+    "refSerialize": "7af65864494b12f0f7ef00589f4d3979"
+  },
+  {
+    "ref": "ans_a1c6712d-61d4-44fd-b54b-b831f5bd8922",
+    "keyword": "key_ef02c394-fada-45a1-b5ea-f4966a8e23c4",
+    "answer": "📞 *Consultas* 📞",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": false
+    },
+    "refSerialize": "3120c53a09efbd9dd1d5561b2be425b1",
+    "from": "5493704524749"
+  },
+  {
+    "ref": "ans_b0853838-19fb-4068-973a-1e4459db9725",
+    "keyword": "ans_a1c6712d-61d4-44fd-b54b-b831f5bd8922",
+    "answer": "¿En qué podemos ayudarte?",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": true,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": true
+    },
+    "refSerialize": "eab77c3075c35c76b3e7aafcf05c2003",
+    "from": "5493704524749"
+  },
+  {
+    "ref": "ae4fd185-be74-4f3d-bf9e-dcd6c2b01225",
+    "keyword": "eab77c3075c35c76b3e7aafcf05c2003",
+    "answer": "Cual es el más barato que tienen?",
+    "options": {},
+    "from": "5493704524749",
+    "refSerialize": "9840c8fd51966ff20efc9a157b291f0f"
+  }
+]

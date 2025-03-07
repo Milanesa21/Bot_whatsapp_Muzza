@@ -1,0 +1,222 @@
+[handleMsg]:  {
+  key: {
+    remoteJid: '5493704524749@s.whatsapp.net',
+    fromMe: false,
+    id: '10AE3DA46D47A8524D143415AA2020B0',
+    participant: undefined
+  },
+  messageTimestamp: 1741346889,
+  pushName: 'Alan ❄️🦋 // Él',
+  broadcast: false,
+  message: Message {
+    conversation: 'Menu',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Menu',
+  from: '5493704524749'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_c027712b-b9bf-43a3-9391-bef563278bb8',
+  keyword: 'key_83f83ca2-5347-4edd-a2ab-5ead3dd05ff2',
+  answer: 'Por favor, elija una de las siguientes opciones 😁\r\n' +
+    '\r\n' +
+    'Opcion 1 - Menu\r\n' +
+    'Opcion 2 - Reservar mesas\r\n' +
+    'Opcion 3 - Hacer consultas\r\n' +
+    '\r\n' +
+    '\r\n' +
+    'Opcion 0 - salir',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '214312255b9ba2a1bca3cd2c79cc73a2'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5493704524749@s.whatsapp.net',
+    fromMe: false,
+    id: '66A8247511963DF531C431FB5E67F214',
+    participant: undefined
+  },
+  messageTimestamp: 1741346893,
+  pushName: 'Alan ❄️🦋 // Él',
+  broadcast: false,
+  message: Message {
+    conversation: '1',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: '1',
+  from: '5493704524749'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5493704524749@s.whatsapp.net',
+    fromMe: false,
+    id: '3925A54B7DEE5ACEB593B96675E46D14',
+    participant: undefined
+  },
+  messageTimestamp: 1741346915,
+  pushName: 'Alan ❄️🦋 // Él',
+  broadcast: false,
+  message: Message {
+    conversation: 'Menu',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Menu',
+  from: '5493704524749'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_c027712b-b9bf-43a3-9391-bef563278bb8',
+  keyword: 'key_83f83ca2-5347-4edd-a2ab-5ead3dd05ff2',
+  answer: 'Por favor, elija una de las siguientes opciones 😁\r\n' +
+    '\r\n' +
+    'Opcion 1 - Menu\r\n' +
+    'Opcion 2 - Reservar mesas\r\n' +
+    'Opcion 3 - Hacer consultas\r\n' +
+    '\r\n' +
+    '\r\n' +
+    'Opcion 0 - salir',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '214312255b9ba2a1bca3cd2c79cc73a2'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5493704524749@s.whatsapp.net',
+    fromMe: false,
+    id: '73C953E328C7213E38E4322ED578AB1B',
+    participant: undefined
+  },
+  messageTimestamp: 1741346917,
+  pushName: 'Alan ❄️🦋 // Él',
+  broadcast: false,
+  message: Message {
+    conversation: '2',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: '2',
+  from: '5493704524749'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5493704524749@s.whatsapp.net',
+    fromMe: false,
+    id: '12F192E7E1D54F9EB5B483E64CF713D0',
+    participant: undefined
+  },
+  messageTimestamp: 1741346923,
+  pushName: 'Alan ❄️🦋 // Él',
+  broadcast: false,
+  message: Message {
+    conversation: 'Menu',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Menu',
+  from: '5493704524749'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_c027712b-b9bf-43a3-9391-bef563278bb8',
+  keyword: 'key_83f83ca2-5347-4edd-a2ab-5ead3dd05ff2',
+  answer: 'Por favor, elija una de las siguientes opciones 😁\r\n' +
+    '\r\n' +
+    'Opcion 1 - Menu\r\n' +
+    'Opcion 2 - Reservar mesas\r\n' +
+    'Opcion 3 - Hacer consultas\r\n' +
+    '\r\n' +
+    '\r\n' +
+    'Opcion 0 - salir',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: '214312255b9ba2a1bca3cd2c79cc73a2'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5493704524749@s.whatsapp.net',
+    fromMe: false,
+    id: '7E9034EB87FAE35496FF21BE023118AA',
+    participant: undefined
+  },
+  messageTimestamp: 1741346925,
+  pushName: 'Alan ❄️🦋 // Él',
+  broadcast: false,
+  message: Message {
+    conversation: '3',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: '3',
+  from: '5493704524749'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5493704524749@s.whatsapp.net',
+    fromMe: false,
+    id: 'FEBD7B35A7192B35169C413F596EB32F',
+    participant: undefined
+  },
+  messageTimestamp: 1741346933,
+  pushName: 'Alan ❄️🦋 // Él',
+  broadcast: false,
+  message: Message {
+    conversation: 'Cual es el más barato que tienen?',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Cual es el más barato que tienen?',
+  from: '5493704524749'
+}
