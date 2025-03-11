@@ -1,0 +1,18 @@
+🍕 Nuestras pizzas 🍕
+
+1. Pizza Muzzarella - $2500
+   Queso muzzarella, salsa de tomate y orégano
+
+2. Pizza Calabresa - $3000
+   Queso muzzarella, salsa de tomate, longaniza calabresa y orégano
+
+3. Pizza Especial - $3200
+   Queso muzzarella, salsa de tomate, jamón, morrones y huevo
+
+4. Pizza Napolitana - $2800
+   Queso muzzarella, salsa de tomate, rodajas de tomate, ajo y orégano
+
+5. Pizza Fugazzeta - $2900
+   Queso muzzarella, cebolla y orégano
+
+Responde con el número de la opción que deseas ordenar.
