@@ -195,7 +195,7 @@ const flowPrincipal = addKeyword([
     // Reset el pedido al inicio
     resetPedido();
     await flowDynamic(
-      "🙌 ¡Hola! Bienvenido a Muzza, tu lugar de pizzería, panadería y sándwiches 🍕🥐🥪"
+      "Hola, aprovechá un maravilloso descuento pidiendo por nuestra página! https://pedidos.masdelivery.com/muzza "
     );
   })
   .addAnswer("¿Qué deseas hacer hoy?")
@@ -600,6 +600,16 @@ const flowDelivery = addKeyword(EVENTS.ACTION)
     }
   );
 
+  // Flow para preguntar la dirección en caso de delivery
+const flowDireccion = addKeyword(EVENTS.ACTION).addAnswer(
+  "Por favor, indica la dirección a la que deseas recibir tu pedido:",
+  { capture: true },
+  async (ctx, { gotoFlow }) => {
+    pedidoActual.direccion = ctx.body; // Guardar la dirección
+    return gotoFlow(flowDetallesPedido); // Continuar con el flujo de detalles
+  }
+);
+
 // Flow para detalles del pedido
 const flowDetallesPedido = addKeyword(EVENTS.ACTION).addAnswer(
   "¿Deseas agregar algún detalle específico en tu pedido? (por ejemplo, sin cebolla, bien cocido, etc.)",
@@ -698,6 +708,7 @@ const flowHorarioEspecifico = addKeyword(EVENTS.ACTION)
     }
   );
 
+  
 // Flow de confirmación final del pedido
 const flowConfirmacionPedido = addKeyword(EVENTS.ACTION)
   .addAction(async (_, { flowDynamic }) => {
@@ -718,6 +729,9 @@ const flowConfirmacionPedido = addKeyword(EVENTS.ACTION)
       `🚚 *Entrega:* ${
         pedidoActual.delivery ? "Delivery (+$500)" : "Retiro en local"
       }`,
+      pedidoActual.delivery
+        ? `📍 *Dirección:* ${pedidoActual.direccion}`
+        : "",
       `💰 *Método de pago:* ${pedidoActual.metodoPago}`,
       `⏰ *Horario:* ${pedidoActual.horario}`,
       `💲 *Total a pagar:* $${pedidoActual.total}`,
@@ -746,13 +760,14 @@ const flowConfirmacionPedido = addKeyword(EVENTS.ACTION)
         // Guardar el pedido en la base de datos
         try {
           const query = `
-            INSERT INTO pedidos (tipo, items, delivery, detalles, nombre_cliente, metodo_pago, horario, total)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+            INSERT INTO pedidos (tipo, items, delivery, direccion, detalles, nombre_cliente, metodo_pago, horario, total)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
           `;
           const values = [
             pedidoActual.tipo,
             JSON.stringify(pedidoActual.items), // Convertir items a JSON
             pedidoActual.delivery,
+            pedidoActual.direccion || null, // Guardar la dirección (o null si no hay)
             pedidoActual.detalles,
             pedidoActual.nombreCliente,
             pedidoActual.metodoPago,
@@ -769,7 +784,7 @@ const flowConfirmacionPedido = addKeyword(EVENTS.ACTION)
               "",
               "Tu pedido ha sido registrado con éxito.",
               pedidoActual.delivery
-                ? "Te enviaremos tu pedido a la dirección proporcionada."
+                ? `Te enviaremos tu pedido a la dirección: ${pedidoActual.direccion}`
                 : "Puedes pasar a retirarlo por nuestro local.",
               "",
               "¡Gracias por tu compra! 😊",
@@ -785,7 +800,7 @@ const flowConfirmacionPedido = addKeyword(EVENTS.ACTION)
           );
         } finally {
           resetPedido(); // Reiniciar el pedido
-          return gotoFlow(flowPrincipal); // Volver al flujo principal
+          return; // Detener la conversación hasta que el usuario envíe un nuevo mensaje
         }
       } else if (
         respuesta.includes("2") ||
