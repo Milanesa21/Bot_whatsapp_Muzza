@@ -1,8 +1,67 @@
 [
   {
-    "ref": "ans_c027712b-b9bf-43a3-9391-bef563278bb8",
-    "keyword": "key_83f83ca2-5347-4edd-a2ab-5ead3dd05ff2",
-    "answer": "Por favor, elija una de las siguientes opciones 😁\r\n\r\nOpcion 1 - Menu\r\nOpcion 2 - Reservar mesas\r\nOpcion 3 - Hacer consultas\r\n\r\n\r\nOpcion 0 - salir",
+    "ref": "7072b95c-bfb4-4080-adf8-2184f4f180e0",
+    "keyword": "05fc24676a985f06a10bf95f337b407e",
+    "answer": "hola",
+    "options": {},
+    "from": "5493704634534",
+    "refSerialize": "79e7fc16f7fb85373fd25a99390f44c0"
+  },
+  {
+    "ref": "ans_cd523dfd-4c2b-4764-93ca-0ed3032db0a6",
+    "keyword": "key_a39b8f76-3fa6-47e7-a59c-9d638f4feff5",
+    "answer": "__call_action__",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": true
+    },
+    "refSerialize": "ce9b3c7b007857aea7ad087c7d9e1293",
+    "from": "5493704634534"
+  },
+  {
+    "ref": "2b47dd3c-c9c3-430c-bc95-416f1656a029",
+    "keyword": null,
+    "answer": "🙌 ¡Hola! Bienvenido a Muzza, tu lugar de pizzería, panadería y sándwiches 🍕🥐🥪",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "delay": 0
+    },
+    "from": "5493704634534",
+    "refSerialize": "2e8849f36769c5433774ee82447499a7"
+  },
+  {
+    "ref": "ans_fd8d1010-1aa2-42cd-92a1-1af35344692c",
+    "keyword": "ans_cd523dfd-4c2b-4764-93ca-0ed3032db0a6",
+    "answer": "¿Qué deseas hacer hoy?",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": false
+    },
+    "refSerialize": "895d0925682e24d2970bb34c1967cbde",
+    "from": "5493704634534"
+  },
+  {
+    "ref": "ans_e0175199-e6ab-4cdc-a4f7-425e5c101c3d",
+    "keyword": "ans_fd8d1010-1aa2-42cd-92a1-1af35344692c",
+    "answer": "1️⃣ Ver nuestro menú de *Pizzería* 🍕\n2️⃣ Ver nuestro menú de *Panadería* 🥐\n3️⃣ Ver nuestro menú de *Sándwiches* 🥪\n4️⃣ Realizar una *Consulta* 📝\n\nPuedes responder con el número o escribir lo que deseas.",
     "options": {
       "media": null,
       "buttons": [],
@@ -15,23 +74,36 @@
       "keyword": {},
       "callback": true
     },
-    "refSerialize": "214312255b9ba2a1bca3cd2c79cc73a2",
-    "from": "5493704524749"
+    "refSerialize": "1b05c6bd4f0b57f3c7743c984d7941d3",
+    "from": "5493704634534"
   },
   {
-    "ref": "2196dd89-1890-4569-b8ae-ff31f1fefe08",
-    "keyword": "214312255b9ba2a1bca3cd2c79cc73a2",
+    "ref": "a694ef34-8a10-4bab-bc58-81219dbefa62",
+    "keyword": "1b05c6bd4f0b57f3c7743c984d7941d3",
     "answer": "1",
     "options": {},
-    "from": "5493704524749",
+    "from": "5493704634534",
     "refSerialize": "290236b1d481a790a200ea6e94b2122a"
   },
   {
-    "ref": "ans_fd014a57-b4fc-4711-a36a-286267da7f54",
-    "keyword": "key_0720fffa-c9e2-4a5d-95ce-720e2f7bbb33",
-    "answer": "Este es nuestro menú de comidas 🍴🤗",
+    "ref": "d8eadc47-ada5-4851-8105-d87c612ca024",
+    "keyword": null,
+    "answer": "Has seleccionado la opción de Pizzería 🍕",
     "options": {
-      "media": "https://img.freepik.com/vector-gratis/menu-restaurante-moderno-comida-rapida_52683-48982.jpg?semt=ais_hybrid",
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "delay": 0
+    },
+    "from": "5493704634534",
+    "refSerialize": "d3c3dda1a8f91bba82a69f535c35f972"
+  },
+  {
+    "ref": "ans_a92c2993-a056-4720-9e5c-8091c904961a",
+    "keyword": "key_e632f72a-b5d5-4520-9b91-f010531b6841",
+    "answer": "🍕 *MENÚ DE PIZZERÍA* 🍕",
+    "options": {
+      "media": null,
       "buttons": [],
       "capture": false,
       "child": null,
@@ -42,21 +114,13 @@
       "keyword": {},
       "callback": false
     },
-    "refSerialize": "61095bba5bfe67f472a02b2a80bd237f",
-    "from": "5493704524749"
+    "refSerialize": "14d197de04c780b63adbb04897b7a61f",
+    "from": "5493704634534"
   },
   {
-    "ref": "b87ae772-af4a-45ef-8235-388986f47139",
-    "keyword": "61095bba5bfe67f472a02b2a80bd237f",
-    "answer": "Menu",
-    "options": {},
-    "from": "5493704524749",
-    "refSerialize": "1943ef5752ef89f46d7b613aaf765c9b"
-  },
-  {
-    "ref": "ans_c027712b-b9bf-43a3-9391-bef563278bb8",
-    "keyword": "key_83f83ca2-5347-4edd-a2ab-5ead3dd05ff2",
-    "answer": "Por favor, elija una de las siguientes opciones 😁\r\n\r\nOpcion 1 - Menu\r\nOpcion 2 - Reservar mesas\r\nOpcion 3 - Hacer consultas\r\n\r\n\r\nOpcion 0 - salir",
+    "ref": "ans_53a46619-6a55-4fa6-9d1e-6581826997c2",
+    "keyword": "ans_a92c2993-a056-4720-9e5c-8091c904961a",
+    "answer": "Las pizzas son 100% artesanales. Elige una opción:\n\n1. Muzzarella (Chica: $14.000 - Grande: $16.000)\n2. Doble Muzzarella (Chica: $17.000 - Grande: $19.000)\n3. Rúcula (Chica: $17.000 - Grande: $19.000)\n4. Rúcula y Jamón Crudo (Chica: $19.000 - Grande: $21.000)\n5. Jamón Crudo (Chica: $18.000 - Grande: $20.000)\n6. Especial (Chica: $16.000 - Grande: $18.000)\n7. Completa (Chica: $17.000 - Grande: $19.000)\n8. Capresse (Chica: $15.000 - Grande: $17.000)\n9. Pepperoni (Chica: $16.000 - Grande: $18.000)\n10. Muzza Picante (Chica: $14.000 - Grande: $16.000)\n11. Otras Variedades (Consultar precios)",
     "options": {
       "media": null,
       "buttons": [],
@@ -69,21 +133,120 @@
       "keyword": {},
       "callback": true
     },
-    "refSerialize": "214312255b9ba2a1bca3cd2c79cc73a2",
-    "from": "5493704524749"
+    "refSerialize": "de77c61132197ef842be8a2018869936",
+    "from": "5493704634534"
   },
   {
-    "ref": "2d4f8646-a326-4684-b939-d4ff85332c04",
-    "keyword": "214312255b9ba2a1bca3cd2c79cc73a2",
+    "ref": "1af0cc08-4c3e-4f70-8dcd-898465638756",
+    "keyword": "de77c61132197ef842be8a2018869936",
+    "answer": "1",
+    "options": {},
+    "from": "5493704634534",
+    "refSerialize": "290236b1d481a790a200ea6e94b2122a"
+  },
+  {
+    "ref": "052ba632-f0f0-4141-a4c3-656685d557e1",
+    "keyword": null,
+    "answer": "Has seleccionado Muzzarella. ¿Qué tamaño deseas?\n\n1. Chica\n2. Grande",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "delay": 0
+    },
+    "from": "5493704634534",
+    "refSerialize": "6ed99a556a523cc3272feb25f97a8d25"
+  },
+  {
+    "ref": "ans_42e06156-12ef-495f-81b8-fae479299e36",
+    "keyword": "key_8d0fc394-e115-4be9-a077-b3d505a04127",
+    "answer": "__capture_only_intended__",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": true,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": true
+    },
+    "refSerialize": "7753db13f5ea0ec6359a2fbdc8cce081",
+    "from": "5493704634534"
+  },
+  {
+    "ref": "6799b197-db14-4dd6-8fd4-1e3cba7d7eed",
+    "keyword": "7753db13f5ea0ec6359a2fbdc8cce081",
+    "answer": "1",
+    "options": {},
+    "from": "5493704634534",
+    "refSerialize": "290236b1d481a790a200ea6e94b2122a"
+  },
+  {
+    "ref": "27d980ad-69ed-4887-8717-b63166cfe95d",
+    "keyword": null,
+    "answer": "Has agregado Muzzarella (Chica) - $14000 a tu pedido. Total actual: $14000",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "delay": 0
+    },
+    "from": "5493704634534",
+    "refSerialize": "d7d6b7facf034ea0078eba40418e86b5"
+  },
+  {
+    "ref": "ans_c53628c3-6caf-4499-9d6e-04d934935fee",
+    "keyword": "key_76c322c1-7ef2-45e2-a3a4-1806212bc288",
+    "answer": "¿Deseas agregar algo más a tu pedido?",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": false
+    },
+    "refSerialize": "3454943e2c6b6da7f93b9787a3d12260",
+    "from": "5493704634534"
+  },
+  {
+    "ref": "ans_78f3d8a1-3445-4556-8818-4de78a1f753e",
+    "keyword": "ans_c53628c3-6caf-4499-9d6e-04d934935fee",
+    "answer": "1️⃣ Sí, agregar más productos\n2️⃣ No, continuar con el pedido",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": true,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": true
+    },
+    "refSerialize": "dabe78956224990d60d49dfe08c8b4ee",
+    "from": "5493704634534"
+  },
+  {
+    "ref": "2a5126cd-6d50-46b3-b02a-70cb37f3810e",
+    "keyword": "dabe78956224990d60d49dfe08c8b4ee",
     "answer": "2",
     "options": {},
-    "from": "5493704524749",
+    "from": "5493704634534",
     "refSerialize": "2294c3d08b53a6effa5df696a15b9d30"
   },
   {
-    "ref": "ans_a79bd716-c82a-4988-9638-90ad368f2dbc",
-    "keyword": "key_0cb9addf-6f9a-49cb-84b1-db5783d31478",
-    "answer": "📅 *Reservas* 📅",
+    "ref": "ans_9b4bf24a-d13f-4a20-9daa-1055b924d037",
+    "keyword": "key_98029e43-8149-4ded-b6d9-9f8f5393060c",
+    "answer": "¿Cómo deseas recibir tu pedido?",
     "options": {
       "media": null,
       "buttons": [],
@@ -96,40 +259,13 @@
       "keyword": {},
       "callback": false
     },
-    "refSerialize": "b96094d52d20db0a19f3c282269d4515",
-    "from": "5493704524749"
+    "refSerialize": "070c4e346da489af0a87e1e56c6878d5",
+    "from": "5493704634534"
   },
   {
-    "ref": "ans_ca80da99-0713-4370-9b45-03a5aa013a06",
-    "keyword": "ans_a79bd716-c82a-4988-9638-90ad368f2dbc",
-    "answer": "www.reservasfalsas.com",
-    "options": {
-      "media": null,
-      "buttons": [],
-      "capture": false,
-      "child": null,
-      "delay": 0,
-      "idle": null,
-      "ref": null,
-      "nested": [],
-      "keyword": {},
-      "callback": false
-    },
-    "refSerialize": "9e87a9c6fdbd318bbd34827a270c71c8",
-    "from": "5493704524749"
-  },
-  {
-    "ref": "61162f7d-020a-413d-aebc-7d1f30a55786",
-    "keyword": "9e87a9c6fdbd318bbd34827a270c71c8",
-    "answer": "Menu",
-    "options": {},
-    "from": "5493704524749",
-    "refSerialize": "1943ef5752ef89f46d7b613aaf765c9b"
-  },
-  {
-    "ref": "ans_c027712b-b9bf-43a3-9391-bef563278bb8",
-    "keyword": "key_83f83ca2-5347-4edd-a2ab-5ead3dd05ff2",
-    "answer": "Por favor, elija una de las siguientes opciones 😁\r\n\r\nOpcion 1 - Menu\r\nOpcion 2 - Reservar mesas\r\nOpcion 3 - Hacer consultas\r\n\r\n\r\nOpcion 0 - salir",
+    "ref": "ans_740d238f-e290-4e18-9774-94b2ff118a84",
+    "keyword": "ans_9b4bf24a-d13f-4a20-9daa-1055b924d037",
+    "answer": "1️⃣ Delivery a domicilio (+$500)\n2️⃣ Paso a retirarlo personalmente",
     "options": {
       "media": null,
       "buttons": [],
@@ -142,40 +278,34 @@
       "keyword": {},
       "callback": true
     },
-    "refSerialize": "214312255b9ba2a1bca3cd2c79cc73a2",
-    "from": "5493704524749"
+    "refSerialize": "63d401c4401831214f0fbf3b20ed64f3",
+    "from": "5493704634534"
   },
   {
-    "ref": "39ca3436-a822-41cb-900c-ed57ee3084a3",
-    "keyword": "214312255b9ba2a1bca3cd2c79cc73a2",
-    "answer": "3",
+    "ref": "c7efdffe-bf17-4ba4-86e1-8f6b48735e07",
+    "keyword": "63d401c4401831214f0fbf3b20ed64f3",
+    "answer": "2",
     "options": {},
-    "from": "5493704524749",
-    "refSerialize": "7af65864494b12f0f7ef00589f4d3979"
+    "from": "5493704634534",
+    "refSerialize": "2294c3d08b53a6effa5df696a15b9d30"
   },
   {
-    "ref": "ans_a1c6712d-61d4-44fd-b54b-b831f5bd8922",
-    "keyword": "key_ef02c394-fada-45a1-b5ea-f4966a8e23c4",
-    "answer": "📞 *Consultas* 📞",
+    "ref": "06901624-81ce-4db5-aead-cd4b1d7c908a",
+    "keyword": null,
+    "answer": "Has seleccionado retirar personalmente. Total del pedido: $14000",
     "options": {
       "media": null,
       "buttons": [],
       "capture": false,
-      "child": null,
-      "delay": 0,
-      "idle": null,
-      "ref": null,
-      "nested": [],
-      "keyword": {},
-      "callback": false
+      "delay": 0
     },
-    "refSerialize": "3120c53a09efbd9dd1d5561b2be425b1",
-    "from": "5493704524749"
+    "from": "5493704634534",
+    "refSerialize": "67ac1afbd944d1915f3b8309db24affb"
   },
   {
-    "ref": "ans_b0853838-19fb-4068-973a-1e4459db9725",
-    "keyword": "ans_a1c6712d-61d4-44fd-b54b-b831f5bd8922",
-    "answer": "¿En qué podemos ayudarte?",
+    "ref": "ans_83eaf537-96b3-4e21-8186-91bcd6d18f2c",
+    "keyword": "key_6bf85170-a421-4746-94d8-840fc3ed215a",
+    "answer": "¿Deseas agregar algún detalle específico en tu pedido? (por ejemplo, sin cebolla, bien cocido, etc.)",
     "options": {
       "media": null,
       "buttons": [],
@@ -188,15 +318,295 @@
       "keyword": {},
       "callback": true
     },
-    "refSerialize": "eab77c3075c35c76b3e7aafcf05c2003",
-    "from": "5493704524749"
+    "refSerialize": "a0e031ebe7acce35211866c8fa226787",
+    "from": "5493704634534"
   },
   {
-    "ref": "ae4fd185-be74-4f3d-bf9e-dcd6c2b01225",
-    "keyword": "eab77c3075c35c76b3e7aafcf05c2003",
-    "answer": "Cual es el más barato que tienen?",
+    "ref": "a3128f9f-2efa-4600-8349-5709c9db7de3",
+    "keyword": "a0e031ebe7acce35211866c8fa226787",
+    "answer": "Con olor a concha de tu vieja",
     "options": {},
-    "from": "5493704524749",
-    "refSerialize": "9840c8fd51966ff20efc9a157b291f0f"
+    "from": "5493704634534",
+    "refSerialize": "76b9eb8a4217d590a5cd85f548809730"
+  },
+  {
+    "ref": "ans_64bae3c8-4a07-4ed3-98c9-1f08dbc3a216",
+    "keyword": "key_91db1559-93d1-438d-b9ad-da21089ca00a",
+    "answer": "Por favor, indica a nombre de quién estará el pedido",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": true,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": true
+    },
+    "refSerialize": "6308b7e97b260eede88c6b53addb45f1",
+    "from": "5493704634534"
+  },
+  {
+    "ref": "12f877cc-34df-49fd-942b-70b13ac27128",
+    "keyword": "6308b7e97b260eede88c6b53addb45f1",
+    "answer": "vladimir putin",
+    "options": {},
+    "from": "5493704634534",
+    "refSerialize": "e25a3af8e8ad89154e2494441854aeb0"
+  },
+  {
+    "ref": "ans_8ba5e4bb-16ea-4d22-9451-3f92cf72b7ce",
+    "keyword": "key_de995f3e-03ce-40cd-89ad-ca6ef0e87a43",
+    "answer": "¿Cómo deseas pagar?",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": false
+    },
+    "refSerialize": "8e29355c700e13b2910e5c6b3a2eeddb",
+    "from": "5493704634534"
+  },
+  {
+    "ref": "ans_f5be24f7-a347-4bbc-bd45-0427ab5d27bc",
+    "keyword": "ans_8ba5e4bb-16ea-4d22-9451-3f92cf72b7ce",
+    "answer": "1️⃣ Efectivo\n2️⃣ Transferencia",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": true,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": true
+    },
+    "refSerialize": "f538d593620c003529316527480f592d",
+    "from": "5493704634534"
+  },
+  {
+    "ref": "1bac378e-7859-4a6d-9c87-263ef3255c66",
+    "keyword": "f538d593620c003529316527480f592d",
+    "answer": "1",
+    "options": {},
+    "from": "5493704634534",
+    "refSerialize": "290236b1d481a790a200ea6e94b2122a"
+  },
+  {
+    "ref": "ans_26d453a1-2839-43da-a751-f121498a09d1",
+    "keyword": "key_b7b2a204-4160-489d-9a09-081653638e4a",
+    "answer": "¿Para qué horario deseas tu pedido?",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": false
+    },
+    "refSerialize": "a75f910efdb3f430075e0da8bdb061a5",
+    "from": "5493704634534"
+  },
+  {
+    "ref": "ans_31581462-8658-4595-aef8-195804c010ec",
+    "keyword": "ans_26d453a1-2839-43da-a751-f121498a09d1",
+    "answer": "1️⃣ Lo antes posible\n2️⃣ Para un horario específico",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": true,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": true
+    },
+    "refSerialize": "7a06c794895f6dbc5d2165fdafe6feff",
+    "from": "5493704634534"
+  },
+  {
+    "ref": "551da1ea-65bf-4752-9214-5e58af4eebed",
+    "keyword": "7a06c794895f6dbc5d2165fdafe6feff",
+    "answer": "1",
+    "options": {},
+    "from": "5493704634534",
+    "refSerialize": "290236b1d481a790a200ea6e94b2122a"
+  },
+  {
+    "ref": "ans_c9371264-a4d4-44f2-a45b-06ed9c7a2a2d",
+    "keyword": "key_f60b9b30-0f76-43ea-b8ff-2147f7583ac7",
+    "answer": "__call_action__",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": true
+    },
+    "refSerialize": "d27482d22139cc0211c78342c869c117",
+    "from": "5493704634534"
+  },
+  {
+    "ref": "ans_a94832c4-3ddf-42e1-b719-ac2ca7f4a77e",
+    "keyword": "ans_c9371264-a4d4-44f2-a45b-06ed9c7a2a2d",
+    "answer": "¿Confirmas este pedido?",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": false
+    },
+    "refSerialize": "85e496219f482f02fc432de0d74c3c19",
+    "from": "5493704634534"
+  },
+  {
+    "ref": "ans_67c3be2b-ae37-4051-a370-1d12139acb17",
+    "keyword": "ans_a94832c4-3ddf-42e1-b719-ac2ca7f4a77e",
+    "answer": "1️⃣ Sí, confirmar pedido\n2️⃣ No, cancelar pedido",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": true,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": true
+    },
+    "refSerialize": "351e1d3e569eb2c714b7bd7372a42085",
+    "from": "5493704634534"
+  },
+  {
+    "ref": "835e05b4-61f3-4855-a831-bf6a29abb1e0",
+    "keyword": null,
+    "answer": "🧾 *RESUMEN DE TU PEDIDO* 🧾\n👤 A nombre de: *vladimir putin*\n\n📋 *Productos:*\n1. Muzzarella - $14000\n\n🚚 *Entrega:* Retiro en local\n💰 *Método de pago:* Efectivo\n⏰ *Horario:* Lo antes posible\n💲 *Total a pagar:* $14000\n\n📝 *Detalles:* Con olor a concha de tu vieja",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "delay": 0
+    },
+    "from": "5493704634534",
+    "refSerialize": "b110cbbfa65a01721b07afe4f9026076"
+  },
+  {
+    "ref": "b9461f54-22f8-4add-a1c8-4fc11c0322e8",
+    "keyword": "351e1d3e569eb2c714b7bd7372a42085",
+    "answer": "1",
+    "options": {},
+    "from": "5493704634534",
+    "refSerialize": "290236b1d481a790a200ea6e94b2122a"
+  },
+  {
+    "ref": "04e318b6-9836-47be-8925-f0fdaf3221ab",
+    "keyword": null,
+    "answer": "✅ *¡Pedido confirmado!* ✅\n\nTu pedido ha sido registrado con éxito.\nPuedes pasar a retirarlo por nuestro local.\n\n¡Gracias por tu compra! 😊",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "delay": 0
+    },
+    "from": "5493704634534",
+    "refSerialize": "1d3cd4ca8355180020babb50c4d46e6b"
+  },
+  {
+    "ref": "ans_cd523dfd-4c2b-4764-93ca-0ed3032db0a6",
+    "keyword": "key_a39b8f76-3fa6-47e7-a59c-9d638f4feff5",
+    "answer": "__call_action__",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": true
+    },
+    "refSerialize": "ce9b3c7b007857aea7ad087c7d9e1293",
+    "from": "5493704634534"
+  },
+  {
+    "ref": "ans_fd8d1010-1aa2-42cd-92a1-1af35344692c",
+    "keyword": "ans_cd523dfd-4c2b-4764-93ca-0ed3032db0a6",
+    "answer": "¿Qué deseas hacer hoy?",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": false
+    },
+    "refSerialize": "895d0925682e24d2970bb34c1967cbde",
+    "from": "5493704634534"
+  },
+  {
+    "ref": "ans_e0175199-e6ab-4cdc-a4f7-425e5c101c3d",
+    "keyword": "ans_fd8d1010-1aa2-42cd-92a1-1af35344692c",
+    "answer": "1️⃣ Ver nuestro menú de *Pizzería* 🍕\n2️⃣ Ver nuestro menú de *Panadería* 🥐\n3️⃣ Ver nuestro menú de *Sándwiches* 🥪\n4️⃣ Realizar una *Consulta* 📝\n\nPuedes responder con el número o escribir lo que deseas.",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": true,
+      "child": null,
+      "delay": 0,
+      "idle": null,
+      "ref": null,
+      "nested": [],
+      "keyword": {},
+      "callback": true
+    },
+    "refSerialize": "1b05c6bd4f0b57f3c7743c984d7941d3",
+    "from": "5493704634534"
+  },
+  {
+    "ref": "f435c060-263d-413f-b65b-f7aed3968e72",
+    "keyword": null,
+    "answer": "🙌 ¡Hola! Bienvenido a Muzza, tu lugar de pizzería, panadería y sándwiches 🍕🥐🥪",
+    "options": {
+      "media": null,
+      "buttons": [],
+      "capture": false,
+      "delay": 0
+    },
+    "from": "5493704634534",
+    "refSerialize": "2e8849f36769c5433774ee82447499a7"
   }
 ]

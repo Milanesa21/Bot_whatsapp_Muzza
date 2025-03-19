@@ -1,18 +1,50 @@
-🥐 Nuestros productos de panadería 🥐
+MENÚ PANADERÍA  
 
-1. Pan Francés - $800/kg
-   Clásico pan francés crujiente por fuera y esponjoso por dentro
+FACTURAS:  
+- Medialunas  
+- Pan de leche  
+- Bollos  
+- Tortitas negras  
+- Chipitas  
+- Pan blanco  
+- Pan integral  
+- Baguette  
+- Cremonas  
+- Bizcochitos saborizados  
+- Pan de campo  
+- Sándwich de masa madre  
+- Sacramento  
+- Miqueletos  
+- Mbejú  
+- Mbejú relleno  
+- Pan rallado  
+- Sopa paraguaya  
+- Chipa guazú  
+- Chipa soo  
 
-2. Medialunas - $1200/docena
-   Medialunas dulces, suaves y esponjosas
-
-3. Facturas - $1400/docena
-   Variedad de facturas con diferentes rellenos
-
-4. Torta - $600/porción
-   Porción de torta del día (consultar sabores disponibles)
-
-5. Sandwich de miga - $400/unidad
-   Sándwiches caseros de jamón y queso
-
-Responde con el número de la opción que deseas ordenar.
+GRISINES:  
+- Bizcochos de manteca  
+- Grisines de hojaldre  
+- Grisines de integral  
+- Pan de hamburguesa  
+- Pan de pancho  
+- Prepizzas  
+- Bocaditos clásicos e integrales  
+- Tostadas  
+- Papas  
+- Galletitas  
+- Galletitas con chips  
+- Pastafloras  
+- Palmeritas  
+- Alfajorcitos de maicena  
+- Alfajores de hojaldre  
+- Budines  
+- Tortas  
+- Sándwich de miga  
+  - Clásico  
+  - Integral  
+  - Verdura  
+- Conitos de dulce de leche  
+- Marineras  
+- Pascualinas  
+- Zapallitos de membrillo  

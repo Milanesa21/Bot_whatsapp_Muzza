@@ -1,18 +1,71 @@
-🍕 Nuestras pizzas 🍕
+MENÚ PIZZAS - MUZZA
+Las pizzas son 100% artesanales.
 
-1. Pizza Muzzarella - $2500
-   Queso muzzarella, salsa de tomate y orégano
+MUZZARELLA
+Muzzarella - Aceitunas - Orégano
+Chica: 14.000
+Grande: 16.000
 
-2. Pizza Calabresa - $3000
-   Queso muzzarella, salsa de tomate, longaniza calabresa y orégano
+DOBLE MUZZARELLA
+Doble Muzzarella - Aceitunas - Orégano
+Chica: 17.000
+Grande: 19.000
 
-3. Pizza Especial - $3200
-   Queso muzzarella, salsa de tomate, jamón, morrones y huevo
+RÚCULA
+Muzzarella - Aceitunas - Orégano - Rúcula
+Chica: 17.000
+Grande: 19.000
 
-4. Pizza Napolitana - $2800
-   Queso muzzarella, salsa de tomate, rodajas de tomate, ajo y orégano
+RÚCULA Y JAMÓN CRUDO
+Muzzarella - Aceitunas - Orégano - Rúcula - Jamón Crudo
+Chica: 19.000
+Grande: 21.000
 
-5. Pizza Fugazzeta - $2900
-   Queso muzzarella, cebolla y orégano
+JAMÓN CRUDO
+Muzzarella - Aceitunas - Orégano - Jamón Crudo
+Chica: 18.000
+Grande: 20.000
 
-Responde con el número de la opción que deseas ordenar.
+ESPECIAL
+Muzzarella - Aceitunas - Orégano - Jamón Cocido
+Chica: 16.000
+Grande: 18.000
+
+COMPLETA
+Muzzarella - Aceitunas - Orégano - Jamón - Morrón
+Chica: 17.000
+Grande: 19.000
+
+CAPRESSE
+Muzzarella - Aceitunas - Orégano - Jamón - Tomate - Albahaca
+Chica: 15.000
+Grande: 17.000
+
+PEPPERONI
+Muzzarella - Aceitunas - Orégano - Salame de Cerdo Tipo Pepperoni
+Chica: 16.000
+Grande: 18.000
+
+MUZZA PICANTE
+Muzzarella - Aceitunas - Orégano - Salsa Picante
+Chica: 14.000
+Grande: 16.000
+
+OTRAS VARIEDADES:
+Jamón, Morrones y Huevo: 19.000 - 21.000
+Jamón, Morrones y Palmitos: 22.000 - 24.000
+Champignon: 18.000 - 20.000
+Tomate, Calabresa y Salsa Picante: 16.000 - 18.000
+Tomate, Jamón y Huevo: 18.000 - 20.000
+Anchoas: 18.000 - 20.000
+Palmitos: 18.000 - 20.000
+Cuatro Quesos: 22.000 - 24.000
+Muzza: 22.000 - 24.000
+Napolitana y Jamón: 17.000 - 19.000
+Fugazzeta: 16.000 - 18.000
+Fugazzeta y Jamón: 18.000 - 20.000
+Muzza Especial: 20.000 - 22.000
+Calabresa: 17.000 - 19.000
+Roquefort: 18.000 - 20.000
+Ciruela a la Tocineta: 20.000 - 22.000
+Pollo a la Barbacoa: 18.000 - 20.000

@@ -1,0 +1,38 @@
+MENÚ SANDWICHS - MUZZA
+Elige el sándwich que más te guste.
+
+HAMBURGUESA ESPECIAL
+Pan - Hamburguesa - Lechuga - Tomate - Queso - Jamón
+Precio: 9.000
+
+HAMBURGUESA COMPLETA
+Pan - Carne - Lechuga - Tomate - Queso - Jamón - Huevo
+Precio: 9.500
+
+SÁNDWICH DE POLLO ESPECIAL
+Pan - Pollo - Lechuga - Tomate - Queso - Jamón
+Precio: 9.500
+
+SÁNDWICH DE POLLO COMPLETO
+Pan - Pollo - Lechuga - Tomate - Queso - Jamón - Huevo
+Precio: 10.000
+
+ALITO DE CARNE ESPECIAL
+Pan de Miga - Carne - Lechuga - Tomate - Queso - Jamón - Gratinado
+Precio: No indicado
+
+ALITO DE CARNE COMPLETO
+Pan de Miga - Carne - Lechuga - Tomate - Queso - Jamón - Huevo - Gratinado
+Precio: No indicado
+
+ALITO DE POLLO ESPECIAL
+Pan de Miga - Pollo - Lechuga - Tomate - Queso - Jamón - Gratinado
+Precio: 14.000
+
+ALITO DE POLLO COMPLETO
+Pan de Miga - Pollo - Lechuga - Tomate - Queso - Jamón - Huevo - Gratinado
+Precio: 15.000
+
+TOSTADO DE JAMÓN Y QUESO
+Pan de Miga - Mayonesa - Queso - Jamón - Tostado
+Precio: 6.000
