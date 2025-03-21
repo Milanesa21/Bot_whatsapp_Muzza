@@ -77,6 +77,7 @@ const flowConfirmacionPedido = addKeyword(EVENTS.ACTION)
                 : "Puedes pasar a retirarlo por nuestro local.",
               "",
               "¡Gracias por tu compra! 😊",
+              "Recuerda que tu pedido llegara entre 30 y 45 minutos",
             ].join("\n")
           );
         } catch (error) {
@@ -88,7 +89,7 @@ const flowConfirmacionPedido = addKeyword(EVENTS.ACTION)
             "Hubo un error al guardar tu pedido. Por favor, inténtalo de nuevo."
           );
         } finally {
-          resetPedido();
+          resetPedido(); // Reiniciar el objeto pedidoActual
           return;
         }
       } else if (respuesta.includes("2") || respuesta.includes("no")) {
@@ -101,7 +102,7 @@ const flowConfirmacionPedido = addKeyword(EVENTS.ACTION)
             "¡Gracias por contactarnos! 😊",
           ].join("\n")
         );
-        resetPedido();
+        resetPedido(); // Reiniciar el objeto pedidoActual
         return gotoFlow(flowPrincipal);
       } else {
         return fallBack(
