@@ -27,6 +27,7 @@
         "node-fetch": "^3.3.2",
         "openai": "^4.86.2",
         "pg": "^8.14.0",
+        "socket.io": "^4.8.1",
         "wa-sticker-formatter": "4.4.4"
     },
     "devDependencies": {

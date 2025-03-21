@@ -43,6 +43,7 @@ const crearTablas = async () => {
           metodo_pago VARCHAR(50) NOT NULL,
           horario VARCHAR(50) NOT NULL,
           total NUMERIC(10, 2) NOT NULL,
+          is_done BOOLEAN DEFAULT FALSE,
           fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
       `);
