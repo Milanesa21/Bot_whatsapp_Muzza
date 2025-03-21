@@ -45,7 +45,6 @@ const flowPrincipal = addKeyword([
       "1️⃣ Ver nuestro menú de *Pizzería* 🍕",
       "2️⃣ Ver nuestro menú de *Panadería* 🥐",
       "3️⃣ Ver nuestro menú de *Sándwiches* 🥪",
-      "4️⃣ Realizar una *Consulta* 📝",
       "\nPuedes responder con el número o escribir lo que deseas.",
     ].join("\n"),
     { capture: true },
@@ -64,12 +63,9 @@ const flowPrincipal = addKeyword([
         pedidoActual.tipo = "Sándwiches"; // Asignar el tipo de menú
         await flowDynamic("Has seleccionado la opción de Sándwiches 🥪");
         return gotoFlow(flowMenuSandwiches);
-      } else if (respuesta.includes("4") || respuesta.includes("consul")) {
-        await flowDynamic("Vamos a resolver tu consulta 📝");
-        return gotoFlow(flowConsultas);
       } else {
         return fallBack(
-          "Por favor, selecciona una opción válida: 1 (Pizzería), 2 (Panadería), 3 (Sándwiches) o 4 (Consulta)"
+          "Por favor, selecciona una opción válida: 1 (Pizzería), 2 (Panadería), 3 (Sándwiches)"
         );
       }
     }

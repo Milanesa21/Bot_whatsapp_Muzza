@@ -43,11 +43,10 @@ router.post("/", async (req, res) => {
     metodo_pago,
     horario,
     total,
-    is_done,
   } = req.body;
   try {
     const result = await client.query(
-      "INSERT INTO pedidos (tipo, items, delivery, direccion, detalles, nombre_cliente, metodo_pago, horario, total,  is_done) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+      "INSERT INTO pedidos (tipo, items, delivery, direccion, detalles, nombre_cliente, metodo_pago, horario, total) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
       [
         tipo,
         JSON.stringify(items),
@@ -58,7 +57,6 @@ router.post("/", async (req, res) => {
         metodo_pago,
         horario,
         total,
-        is_done,
       ]
     );
     res.status(201).json(result.rows[0]);
@@ -81,7 +79,6 @@ router.put("/:id", async (req, res) => {
     metodo_pago,
     horario,
     total,
-    is_done,
   } = req.body;
   try {
     const result = await client.query(
@@ -96,7 +93,6 @@ router.put("/:id", async (req, res) => {
         metodo_pago,
         horario,
         total,
-        is_done,
         id,
       ]
     );

@@ -8,8 +8,8 @@ const menuSandwiches = {
   2: { nombre: "Hamburguesa Completa", precio: 9500 },
   3: { nombre: "Sándwich de Pollo Especial", precio: 9500 },
   4: { nombre: "Sándwich de Pollo Completo", precio: 10000 },
-  5: { nombre: "Alito de Carne Especial", precio: 12000 }, // Precio asumido
-  6: { nombre: "Alito de Carne Completo", precio: 13000 }, // Precio asumido
+  5: { nombre: "Alito de Carne Especial", precio: 12000 },
+  6: { nombre: "Alito de Carne Completo", precio: 13000 }, 
   7: { nombre: "Alito de Pollo Especial", precio: 14000 },
   8: { nombre: "Alito de Pollo Completo", precio: 15000 },
   9: { nombre: "Tostado de Jamón y Queso", precio: 6000 },

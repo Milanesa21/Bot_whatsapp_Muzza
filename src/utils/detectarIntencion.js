@@ -19,14 +19,7 @@ const detectarIntencion = async (texto) => {
     "medialunas",
     "torta",
   ];
-  const palabrasConsulta = [
-    "consulta",
-    "pregunta",
-    "información",
-    "informacion",
-    "duda",
-    "ayuda",
-  ];
+
 
   if (palabrasPizzeria.some((palabra) => textoLower.includes(palabra))) {
     return "pizzeria";
