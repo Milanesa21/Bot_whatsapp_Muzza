@@ -6,7 +6,7 @@ const flowConfirmacionPedido = require("./FlowConfirmacion")
 const flowHorarioEspecifico = addKeyword(EVENTS.ACTION).addAnswer(
   "¿Para qué horario específico lo deseas? (Ej: 20:30)",
   { capture: true },
-  async (ctx, { gotoFlow, flowDynamic }) => {
+  async (ctx, { gotoFlow, flowDynamic, fallBack }) => {
     const horarioIngresado = ctx.body;
 
     if (/\d+[:]\d+/.test(horarioIngresado) || horarioIngresado.includes(":")) {

@@ -1,5 +1,6 @@
 const { addKeyword, EVENTS } = require("@bot-whatsapp/bot");
 const flowDelivery = require("./FlowDelivery")
+const flowSeleccionarMenu = require("./FlowSeleccionMenu")
 
 const flowAgregarMas = addKeyword(EVENTS.ACTION)
   .addAnswer("¿Deseas agregar algo más a tu pedido?")
@@ -13,13 +14,7 @@ const flowAgregarMas = addKeyword(EVENTS.ACTION)
 
       if (respuesta.includes("1") || respuesta.includes("si")) {
         // Si elige "Sí", mostrar opciones de menú
-        await flowDynamic(
-          "¿De qué menú deseas agregar más productos?\n\n" +
-            "1. 🍕 Pizzas\n" +
-            "2. 🥪 Sándwiches\n" +
-            "3. 🥖 Panadería"
-        );
-        return gotoFlow(require("./FlowSeleccionMenu").flowSeleccionarMenu);
+        return gotoFlow(flowSeleccionarMenu);
       } else if (respuesta.includes("2") || respuesta.includes("no")) {
         // Si elige "No", continuar con el pedido
         return gotoFlow(flowDelivery);

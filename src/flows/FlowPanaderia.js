@@ -1,6 +1,5 @@
 const { addKeyword, EVENTS } = require("@bot-whatsapp/bot");
 const { pedidoActual } = require("../utils/resetPedido");
-const flowAgregarMas = require("./FlowAgregarmas");
 
 // Menú de panadería como una lista única numerada
 const menuPanaderia = {
@@ -115,6 +114,7 @@ const flowMenuPanaderia = addKeyword(EVENTS.ACTION).addAnswer(
     );
 
     // Redirigir al flujo para agregar más ítems
+    const flowAgregarMas = require("./FlowAgregarmas"); // Importar aquí para evitar dependencia circular
     return gotoFlow(flowAgregarMas);
   }
 );

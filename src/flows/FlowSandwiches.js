@@ -1,6 +1,5 @@
 const { addKeyword, EVENTS } = require("@bot-whatsapp/bot");
 const { pedidoActual } = require("../utils/resetPedido");
-const flowAgregarMas = require("./FlowAgregarmas")
 
 // Objeto con el menú de sándwiches
 const menuSandwiches = {
@@ -54,8 +53,9 @@ const flowMenuSandwiches = addKeyword(EVENTS.ACTION).addAnswer(
     );
 
     // Redirigir al flujo para agregar más ítems
+    const flowAgregarMas = require("./FlowAgregarmas"); // Importar aquí para evitar dependencia circular
     return gotoFlow(flowAgregarMas);
   }
 );
 
-module.exports =  flowMenuSandwiches ;
+module.exports = flowMenuSandwiches;

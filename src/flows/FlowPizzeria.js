@@ -19,10 +19,6 @@ const menuPizzas = {
   9: { nombre: "Pepperoni", precioChica: 16000, precioGrande: 18000 },
   10: { nombre: "Muzza Picante", precioChica: 14000, precioGrande: 16000 },
   11: { nombre: "Otras Variedades" },
-};
-
-// Objeto con las otras variedades
-const otrasVariedades = {
   12: {
     nombre: "Jamón, Morrones y Huevo",
     precioChica: 19000,

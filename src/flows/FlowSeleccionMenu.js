@@ -1,8 +1,5 @@
 const { addKeyword, EVENTS } = require("@bot-whatsapp/bot");
 const { pedidoActual } = require("../utils/resetPedido");
-const flowMenuPizzeria = require("./FlowPizzeria");
-const flowMenuSandwiches = require("./FlowSandwiches");
-const flowMenuPanaderia = require("./FlowPanaderia");
 
 const flowSeleccionarMenu = addKeyword(EVENTS.ACTION).addAnswer(
   "Elige el menú del que deseas agregar más productos:\n\n" +
@@ -15,12 +12,15 @@ const flowSeleccionarMenu = addKeyword(EVENTS.ACTION).addAnswer(
 
     if (seleccion === "1") {
       pedidoActual.tipo = "Pizzería"; // Asignar el tipo de menú
+      const flowMenuPizzeria = require("./FlowPizzeria"); // Importar aquí para evitar dependencia circular
       return gotoFlow(flowMenuPizzeria);
     } else if (seleccion === "2") {
       pedidoActual.tipo = "Sándwiches"; // Asignar el tipo de menú
+      const flowMenuSandwiches = require("./FlowSandwiches"); // Importar aquí para evitar dependencia circular
       return gotoFlow(flowMenuSandwiches);
     } else if (seleccion === "3") {
       pedidoActual.tipo = "Panadería"; // Asignar el tipo de menú
+      const flowMenuPanaderia = require("./FlowPanaderia"); // Importar aquí para evitar dependencia circular
       return gotoFlow(flowMenuPanaderia);
     } else {
       return fallBack("Por favor, selecciona una opción válida (1-3)");
