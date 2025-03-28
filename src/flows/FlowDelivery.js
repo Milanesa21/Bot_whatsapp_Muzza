@@ -27,7 +27,8 @@ const flowDelivery = addKeyword(EVENTS.ACTION)
         pedidoActual.direccion = null; // Limpiar la dirección si no es delivery
         await flowDynamic(
           "Has seleccionado retirar personalmente. Total del pedido: $" +
-            pedidoActual.total
+            pedidoActual.total +
+            "\nPuedes pasar a buscar tu pedido en nuestro local, esta en Sarmiento 1314, entre Salta y Ayacucho."
         );
         return gotoFlow(flowDetallesPedido); // Continuar con el flujo normal
       } else {

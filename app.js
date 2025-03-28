@@ -26,6 +26,7 @@ const flowWelcome = require("./src/flows/FlowWelcome");
 const flowMenuPizzeria = require("./src/flows/FlowPizzeria");
 const flowMenuPanaderia = require("./src/flows/FlowPanaderia");
 const flowMenuSandwiches = require("./src/flows/FlowSandwiches");
+const flowMenuEmpanadas = require("./src/flows/flowMenuEmpanadas");
 const flowSeleccionTamaño = require("./src/flows/FlowSeleccionTamaño");
 const flowAgregarMas = require("./src/flows/FlowAgregarmas");
 const flowDelivery = require("./src/flows/FlowDelivery");
@@ -39,14 +40,15 @@ const flowConfirmacionPedido = require("./src/flows/FlowConfirmacion");
 const flowConsultas = require("./src/flows/FlowConsultas");
 const flowVoice = require("./src/flows/FlowVoice");
 const FlowSeleccionMenu = require("./src/flows/FlowSeleccionMenu")
+const flowGaseosas = require("./src/flows/flowGaseosa")
 
 const flujos = [
-  
   flowPrincipal,
   flowWelcome,
   flowMenuPizzeria,
   flowMenuPanaderia,
   flowMenuSandwiches,
+  flowMenuEmpanadas,
   flowSeleccionTamaño,
   flowAgregarMas,
   flowDelivery,
@@ -60,7 +62,9 @@ const flujos = [
   flowConsultas,
   FlowSeleccionMenu,
   flowVoice,
+  flowGaseosas,
 ];
+
 
 console.log("Flujos cargados:", flujos);
 
@@ -119,6 +123,8 @@ const main = async () => {
       flowMenuPizzeria,
       flowMenuPanaderia,
       flowMenuSandwiches,
+      flowMenuEmpanadas,
+      flowGaseosas,
       flowSeleccionTamaño,
       flowAgregarMas,
       flowDelivery,

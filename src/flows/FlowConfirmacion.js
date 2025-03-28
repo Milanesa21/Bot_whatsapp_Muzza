@@ -13,7 +13,17 @@ const flowConfirmacionPedido = addKeyword(EVENTS.ACTION)
     ];
 
     pedidoActual.items.forEach((item, index) => {
-      resumen.push(`${index + 1}. ${item.nombre} - $${item.precio}`);
+      // Mostrar cantidad solo si está definida, de lo contrario asumir 1
+      const cantidad = item.cantidad || 1;
+      const precioTotal =
+        item.precioTotal || item.precio * cantidad || item.precio;
+
+      resumen.push(
+        `${index + 1}. ${item.nombre}` +
+          `\n   Cantidad: ${cantidad}` +
+          `\n   Precio unitario: $${item.precioUnitario || item.precio}` +
+          `\n   Subtotal: $${precioTotal}`
+      );
     });
 
     resumen = resumen.concat([
@@ -67,19 +77,28 @@ const flowConfirmacionPedido = addKeyword(EVENTS.ACTION)
           await client.query(query, values);
           console.log("Pedido guardado en la base de datos");
 
-          await flowDynamic(
-            [
-              "✅ *¡Pedido confirmado!* ✅",
+          // Construir el mensaje de confirmación
+          let mensajeConfirmacion = [
+            "✅ *¡Pedido confirmado!* ✅",
+            "",
+            "Tu pedido ha sido registrado con éxito.",
+            pedidoActual.delivery
+              ? `Te enviaremos tu pedido a la dirección: ${pedidoActual.direccion}`
+              : "Puedes pasar a retirarlo por nuestro local.",
+            "",
+            "¡Gracias por tu compra! 😊",
+            "Recuerda que tu pedido llegará entre 30 y 45 minutos",
+          ];
+
+          // Si el método de pago es transferencia, agregar recordatorio del alias
+          if (pedidoActual.metodoPago.toLowerCase() === "transferencia") {
+            mensajeConfirmacion.push(
               "",
-              "Tu pedido ha sido registrado con éxito.",
-              pedidoActual.delivery
-                ? `Te enviaremos tu pedido a la dirección: ${pedidoActual.direccion}`
-                : "Puedes pasar a retirarlo por nuestro local.",
-              "",
-              "¡Gracias por tu compra! 😊",
-              "Recuerda que tu pedido llegara entre 30 y 45 minutos",
-            ].join("\n")
-          );
+              "💳 *Recuerda:* Realiza la transferencia al alias *AGUSTINO.FSA*."
+            );
+          }
+
+          await flowDynamic(mensajeConfirmacion.join("\n"));
         } catch (error) {
           console.error(
             "Error al guardar el pedido en la base de datos:",

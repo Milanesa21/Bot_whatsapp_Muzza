@@ -1,5 +1,6 @@
 const { addKeyword, EVENTS } = require("@bot-whatsapp/bot");
 const { pedidoActual } = require("../utils/resetPedido");
+const flowAgregarMas = require("./FlowAgregarmas");
 
 // Objeto con el menú de sándwiches
 const menuSandwiches = {
@@ -7,11 +8,9 @@ const menuSandwiches = {
   2: { nombre: "Hamburguesa Completa", precio: 9500 },
   3: { nombre: "Sándwich de Pollo Especial", precio: 9500 },
   4: { nombre: "Sándwich de Pollo Completo", precio: 10000 },
-  5: { nombre: "Alito de Carne Especial", precio: 12000 },
-  6: { nombre: "Alito de Carne Completo", precio: 13000 }, 
-  7: { nombre: "Alito de Pollo Especial", precio: 14000 },
-  8: { nombre: "Alito de Pollo Completo", precio: 15000 },
-  9: { nombre: "Tostado de Jamón y Queso", precio: 6000 },
+  5: { nombre: "Alito de Pollo Especial", precio: 14000 },
+  6: { nombre: "Alito de Pollo Completo", precio: 15000 },
+  7: { nombre: "Tostado de Jamón y Queso", precio: 6000 },
 };
 
 // Función para generar el texto del menú
@@ -19,7 +18,7 @@ const generarMenuTexto = () => {
   let menuTexto = "🥪 *MENÚ DE SÁNDWICHES* 🥪\n\n";
   menuTexto += "Elige un sándwich:\n\n";
   for (const [key, value] of Object.entries(menuSandwiches)) {
-    menuTexto += `${key}. ${value.nombre} ($${value.precio})\n`;
+    menuTexto += `${key}. ${value.nombre} - $${value.precio}\n`;
   }
   return menuTexto;
 };
@@ -31,31 +30,63 @@ const validarSeleccion = (seleccion, opciones) => {
 };
 
 // Flujo principal del menú de sándwiches
-const flowMenuSandwiches = addKeyword(EVENTS.ACTION).addAnswer(
-  generarMenuTexto(),
-  { capture: true },
-  async (ctx, { flowDynamic, fallBack, gotoFlow }) => {
-    const seleccion = ctx.body;
+const flowMenuSandwiches = addKeyword(EVENTS.ACTION)
+  .addAnswer(
+    generarMenuTexto(),
+    { capture: true },
+    async (ctx, { flowDynamic, fallBack }) => {
+      const seleccion = ctx.body;
 
-    if (!validarSeleccion(seleccion, Object.keys(menuSandwiches).map(Number))) {
-      return fallBack("Por favor, selecciona una opción válida (1-9)");
+      if (
+        !validarSeleccion(seleccion, Object.keys(menuSandwiches).map(Number))
+      ) {
+        return fallBack("❌ Por favor, selecciona una opción válida (1-9)");
+      }
+
+      const opcion = parseInt(seleccion);
+      const sandwich = menuSandwiches[opcion];
+
+      // Guardamos temporalmente el sándwich seleccionado
+      pedidoActual.ultimoProducto = sandwich;
+
+      await flowDynamic(
+        `🥪 Has seleccionado *${sandwich.nombre}* ($${sandwich.precio}).`
+      );
+      return "¿Cuántas unidades deseas?";
     }
+  )
+  .addAnswer(
+    "Ingresa la cantidad:",
+    { capture: true },
+    async (ctx, { flowDynamic, fallBack, gotoFlow }) => {
+      const cantidad = parseInt(ctx.body);
 
-    const opcion = parseInt(seleccion);
-    const item = menuSandwiches[opcion];
+      if (isNaN(cantidad) || cantidad <= 0) {
+        return fallBack("❌ Por favor, ingresa un número válido (1 o más).");
+      }
 
-    // Agregar el ítem al pedido actual
-    pedidoActual.items.push(item);
-    pedidoActual.total += item.precio;
+      const sandwich = pedidoActual.ultimoProducto;
+      const precioTotal = sandwich.precio * cantidad;
 
-    await flowDynamic(
-      `Has agregado ${item.nombre} - $${item.precio} a tu pedido. Total actual: $${pedidoActual.total}`
-    );
+      // Agregamos al pedido actual
+      pedidoActual.items.push({
+        nombre: sandwich.nombre,
+        cantidad,
+        precioUnitario: sandwich.precio,
+        precioTotal,
+      });
 
-    // Redirigir al flujo para agregar más ítems
-    const flowAgregarMas = require("./FlowAgregarmas"); // Importar aquí para evitar dependencia circular
-    return gotoFlow(flowAgregarMas);
-  }
-);
+      pedidoActual.total += precioTotal;
+
+      await flowDynamic(
+        `✅ Has agregado ${cantidad} unidad(es) de *${sandwich.nombre}*.\n` +
+          `💰 Precio unitario: $${sandwich.precio}\n` +
+          `💵 Total por este ítem: $${precioTotal}\n\n` +
+          `🛒 Total acumulado: $${pedidoActual.total}`
+      );
+
+      return gotoFlow(flowAgregarMas);
+    }
+  );
 
 module.exports = flowMenuSandwiches;
