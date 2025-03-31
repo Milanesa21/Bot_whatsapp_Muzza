@@ -147,13 +147,19 @@ const main = async () => {
       database: adapterDB,
     });
 
-    server.listen(4000, () => {
-      console.log("Servidor backend corriendo en http://localhost:5000");
+    
+    const qrPortal = QRPortalWeb({
+      port: 4000,
+      startServer: false,
     });
+    app.use("/qr", qrPortal.app);
 
-    // Iniciar el servidor del portal QR
-    QRPortalWeb({ port: 5000 });
-    console.log("Servidor iniciado en http://localhost:5000");
+    server.listen(process.env.PORT || 4000, () => {
+      console.log(
+        `Servidor backend corriendo en puerto ${process.env.PORT || 4000}`
+      );
+      console.log(`Portal QR disponible en /qr`);
+    });
   } catch (error) {
     console.error("Error en main:", error);
   }

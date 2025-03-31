@@ -94,7 +94,7 @@ const flowConfirmacionPedido = addKeyword(EVENTS.ACTION)
           if (pedidoActual.metodoPago.toLowerCase() === "transferencia") {
             mensajeConfirmacion.push(
               "",
-              "💳 *Recuerda:* Realiza la transferencia al alias *AGUSTINO.FSA*."
+              "💳 *Recuerda:* Realiza la transferencia al alias *AGUSTINO.FSA*"
             );
           }
 
