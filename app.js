@@ -147,36 +147,13 @@ const main = async () => {
       database: adapterDB,
     });
 
-    // Iniciar servidor Express
-    const expressServer = server.listen(process.env.PORT || 4000, () => {
-      console.log(
-        `Servidor backend corriendo en puerto ${process.env.PORT || 4000}`
-      );
+    server.listen(4000, () => {
+      console.log("Servidor backend corriendo en http://localhost:5000");
     });
 
-    // Iniciar servidor QR en un puerto diferente solo para desarrollo local
-    if (process.env.NODE_ENV !== "production") {
-      QRPortalWeb({ port: 5000 });
-      console.log(
-        "Portal QR disponible en http://localhost:5000 (solo desarrollo)"
-      );
-    } else {
-      // En producción (Railway), usamos el mismo puerto con rutas diferentes
-      app.get("/qr", (req, res) => {
-        res.send(`
-          <html>
-            <body>
-              <h1>Escanea el código QR</h1>
-              <p>Para desarrollo local, usa el puerto 5000</p>
-              <p>En producción, configura el servicio QR por separado en Railway</p>
-            </body>
-          </html>
-        `);
-      });
-      console.log(
-        "En producción, configura el servicio QR por separado en Railway"
-      );
-    }
+    // Iniciar el servidor del portal QR
+    QRPortalWeb({ port: 5000 });
+    console.log("Servidor iniciado en http://localhost:5000");
   } catch (error) {
     console.error("Error en main:", error);
   }
