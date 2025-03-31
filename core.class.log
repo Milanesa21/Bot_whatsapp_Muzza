@@ -1,0 +1,182 @@
+[handleMsg]:  {
+  key: {
+    remoteJid: '5493704524749@s.whatsapp.net',
+    fromMe: false,
+    id: '06E21219B05ECAD21D4B81380B5F300F',
+    participant: undefined
+  },
+  messageTimestamp: 1743129116,
+  pushName: 'Alan ❄️🦋 // Él',
+  broadcast: false,
+  message: Message {
+    conversation: 'Hola',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: 'Hola',
+  from: '5493704524749'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_ce9c1eaa-568d-4365-8630-0e57f814d6ab',
+  keyword: 'key_58d46fab-a5d8-484b-b020-9767b4b0dea8',
+  answer: '__call_action__',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: 'b973e744dc94c092af29ae2898ec0366'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_6daf9deb-33e9-4399-9e4d-61ffa65b640d',
+  keyword: 'ans_ce9c1eaa-568d-4365-8630-0e57f814d6ab',
+  answer: '¿Qué deseas hacer hoy? 🤔',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: '25944be57229793eb51fa30ec5d8c5d1'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_8342f346-6a77-477d-a3fc-7b513ca1ec86',
+  keyword: 'ans_6daf9deb-33e9-4399-9e4d-61ffa65b640d',
+  answer: '1️⃣ Ver nuestro menú de *Pizzería* 🍕\n' +
+    '2️⃣ Ver nuestro menú de *Sándwiches* 🥪\n' +
+    '3️⃣ Ver nuestro menú de *Empanadas* 🥟\n' +
+    '4️⃣ Ver nuestro menú de *Gaseosas, Aguas Saborizadas y Bebidas* 🥤\n' +
+    '\n' +
+    'Puedes responder con el número o escribir lo que deseas. 😊',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: 'a44a25ca5c9350ce56d096ebcca54ec8'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5493704524749@s.whatsapp.net',
+    fromMe: false,
+    id: '4A98E475005C04B9A63BF02C9EF064F4',
+    participant: undefined
+  },
+  messageTimestamp: 1743129121,
+  pushName: 'Alan ❄️🦋 // Él',
+  broadcast: false,
+  message: Message {
+    conversation: '3',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: '3',
+  from: '5493704524749'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5493704524749@s.whatsapp.net',
+    fromMe: false,
+    id: 'FF67B965ED166DEC77F9DFCF0CB1955B',
+    participant: undefined
+  },
+  messageTimestamp: 1743129125,
+  pushName: 'Alan ❄️🦋 // Él',
+  broadcast: false,
+  message: Message {
+    conversation: '24',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: '24',
+  from: '5493704524749'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_716cb1cb-425c-4df2-91a5-d1c0886f5d93',
+  keyword: 'ans_3561776d-79c6-4946-964b-c8452d69ef30',
+  answer: 'Ingresa la cantidad:',
+  options: {
+    media: null,
+    buttons: [],
+    capture: true,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: true
+  },
+  refSerialize: 'f71b70685020db2f4773227bbdca4e34'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5493704524749@s.whatsapp.net',
+    fromMe: false,
+    id: '667B1515F0D846AFCF23A2DD3AF0EAF3',
+    participant: undefined
+  },
+  messageTimestamp: 1743129128,
+  pushName: 'Alan ❄️🦋 // Él',
+  broadcast: false,
+  message: Message {
+    conversation: '6',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: '6',
+  from: '5493704524749'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5493704524749@s.whatsapp.net',
+    fromMe: false,
+    id: '3D30730FE20B6E5F309217B90CE04B19',
+    participant: undefined
+  },
+  messageTimestamp: 1743129133,
+  pushName: 'Alan ❄️🦋 // Él',
+  broadcast: false,
+  message: Message {
+    conversation: '2',
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array]
+    }
+  },
+  body: '2',
+  from: '5493704524749'
+}

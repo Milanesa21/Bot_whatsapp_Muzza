@@ -16,7 +16,7 @@ const flowMetodoPago = addKeyword(EVENTS.ACTION)
       } else if (respuesta.includes("2") || respuesta.includes("transf")) {
         pedidoActual.metodoPago = "Transferencia";
         await flowDynamic(
-          `💳 Para pagar con transferencia, realiza el pago al alias *AGUSTINO.FSA*. \n` +
+          `💳 Para pagar con transferencia, realiza el pago al alias *AGUSTINO.FSA* \n` +
             `Recuerda que al confirmar tu pedido, se te volverá a mostrar el alias para que completes la transferencia.`
         );
         return gotoFlow(flowHorario);

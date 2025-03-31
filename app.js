@@ -71,15 +71,18 @@ console.log("Flujos cargados:", flujos);
 const adapterFlow = createFlow(flujos);
 
 // Configuración Express y Socket.io
-app.use(cors());
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN || "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/pedidos", pedidosRoutes);
 const server = http.createServer(app);
 const io = new Server(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  },
+  cors: corsOptions,
 });
 
 // Escuchar conexiones de Socket.IO
@@ -90,6 +93,22 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("Un cliente se ha desconectado:", socket.id);
   });
+});
+
+// Graceful shutdown handling
+const gracefulShutdown = () => {
+  server.close(() => {
+    console.log('Server closed gracefully');
+    process.exit(0);
+  });
+};
+
+process.on('SIGTERM', gracefulShutdown);
+process.on('SIGINT', gracefulShutdown);
+
+// Health check endpoint
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "healthy" });
 });
 
 // Ruta de ejemplo
@@ -112,6 +131,9 @@ inicializarBaseDeDatos()
     console.error("Error al inicializar la base de datos:", error);
     process.exit(1); // Salir del proceso si hay un error crítico
   });
+
+// Definición de puertos desde variables de entorno
+const PORT = process.env.PORT || 3000;
 
 // Inicialización del bot
 const main = async () => {
@@ -146,15 +168,21 @@ const main = async () => {
       provider: adapterProvider,
       database: adapterDB,
     });
-
-    server.listen(4000, () => {
-      console.log("Servidor backend corriendo en http://localhost:5000");
+    
+    // Configurar QR Portal como middleware
+    const qrPath = "/qr";
+    app.use(qrPath, (req, res, next) => {
+      QRPortalWeb().middleware()(req, res, next);
     });
 
-    // Iniciar el servidor del portal QR
-    QRPortalWeb({ port: 5000 });
-    console.log("Servidor iniciado en http://localhost:5000");
+    server.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+      console.log(`- Main API: http://localhost:${PORT}`);
+      console.log(`- QR Portal: http://localhost:${PORT}${qrPath}`);
+    }).on('error', (error) => {
+      console.error(`Error al iniciar el servidor en el puerto ${PORT}:`, error);
+      process.exit(1);
+    });
   } catch (error) {
     console.error("Error en main:", error);
-  }
-};
+  }}
