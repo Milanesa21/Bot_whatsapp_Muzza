@@ -2,30 +2,37 @@ const { addKeyword, EVENTS } = require("@bot-whatsapp/bot");
 const { pedidoActual } = require("../utils/resetPedido");
 const flowAgregarMas = require("./FlowAgregarmas");
 
-// Menú de gaseosas y aguas saborizadas
-const menuGaseosas = {
-  1: { nombre: "PEPSI CLASICA GASEOSA 1,5 litro", precio: 3800 },
-  2: { nombre: "PEPSI SIN AZUCAR GASEOSA 1,5 litro", precio: 3800 },
-  3: { nombre: "SEVEN UP (7'UP) GASEOSA 1,5 litro", precio: 3800 },
-  4: { nombre: "MIRINDA NARANJA GASEOSA 1,5 litro", precio: 3800 },
-  5: { nombre: "COCA-FANTA-SPRITE GASEOSA Grande", precio: 6300 },
-  6: { nombre: "COCA COLA - FANTA - SPRITE 1 litro", precio: 6000 },
-  7: { nombre: "COCA COLA - FANTA - SPRITE 500 ml", precio: 4000 },
-  8: { nombre: "AGUARIUS Agua Saborizada", precio: 2700 },
-  9: { nombre: "AGUA SIN GAS Botella 600 ml", precio: 2000 },
-  10: { nombre: "AGUA CON GAS Botella 600 ml", precio: 2000 },
-  11: { nombre: "CERVEZA PATAGONIA AMBER 730 ml", precio: 5900 },
-  12: { nombre: "CERVEZA CORONA 710 ml", precio: 5900 },
-  13: { nombre: "CERVEZA CORONA 330 ml", precio: 5000 },
-  14: { nombre: "CERVEZA STELLA ARTOIS 1 litro", precio: 6700 },
-  15: { nombre: "CERVEZA STELLA ARTOIS 710ml", precio: 5900 },
-  16: { nombre: "CERVEZA BRAHMA 1 litro", precio: 4100 },
+// Menú de bebidas basado en el excel: refrescos, aguas y cervezas
+const menuBebidas = {
+  1: { nombre: "PEPSI 1.5L", precio: 4300 },
+  2: { nombre: "PEPSI 354ML", precio: 2100 },
+  3: { nombre: "PEPSI 500CC", precio: 3450 },
+  4: { nombre: "7UP 1.5L", precio: 4350 },
+  5: { nombre: "7UP 354ML", precio: 1500 },
+  6: { nombre: "7UP 500CC", precio: 3000 },
+  7: { nombre: "MIRINDA 1.5L", precio: 3800 },
+  8: { nombre: "MIRINDA 354ML", precio: 2100 },
+  9: { nombre: "MIRINDA 500CC", precio: 3450 },
+  10: { nombre: "FANTA 1L", precio: 6900 },
+  11: { nombre: "FANTA 375ML", precio: 1950 },
+  12: { nombre: "FANTA 500CC", precio: 4600 },
+  13: { nombre: "SPRITE 375ML", precio: 1950 },
+  14: { nombre: "SPRITE 500CC", precio: 4600 },
+  15: { nombre: "AGUA SIN GAS 600ml", precio: 2300 },
+  16: { nombre: "AGUA CON GAS 600ml", precio: 2300 },
+  17: { nombre: "PATAGONIA AMBER LAGER 710CC", precio: 6700 },
+  18: { nombre: "CORONA 710CC", precio: 6750 },
+  19: { nombre: "CORONA LATA 410CC", precio: 4350 },
+  20: { nombre: "STELLA 1L", precio: 7700 },
+  21: { nombre: "STELLA 710CC", precio: 6750 },
+  22: { nombre: "BRAHMA 1L", precio: 4700 },
+  23: { nombre: "HEINEKEN 1L", precio: 7700 },
 };
 
 const generarMenuTexto = () => {
-  let menuTexto = "🥤 *MENÚ DE GASEOSAS Y AGUAS SABORIZADAS Y GASEOSAS* 🥤\n\n";
+  let menuTexto = "🥤 *MENÚ DE BEBIDAS* 🥤\n\n";
   menuTexto += "Elige una opción:\n\n";
-  for (const [key, value] of Object.entries(menuGaseosas)) {
+  for (const [key, value] of Object.entries(menuBebidas)) {
     menuTexto += `${key}. ${value.nombre} - $${value.precio}\n`;
   }
   return menuTexto;
@@ -42,12 +49,12 @@ const flowGaseosas = addKeyword(EVENTS.ACTION)
     { capture: true },
     async (ctx, { flowDynamic, fallBack }) => {
       const seleccion = ctx.body;
-      if (!validarSeleccion(seleccion, Object.keys(menuGaseosas).map(Number))) {
-        return fallBack("❌ Por favor, selecciona una opción válida (1-20).");
+      if (!validarSeleccion(seleccion, Object.keys(menuBebidas).map(Number))) {
+        return fallBack("❌ Por favor, selecciona una opción válida (1-23).");
       }
 
       const opcion = parseInt(seleccion);
-      const bebida = menuGaseosas[opcion];
+      const bebida = menuBebidas[opcion];
 
       // Guardamos temporalmente la bebida seleccionada
       pedidoActual.ultimoProducto = bebida;

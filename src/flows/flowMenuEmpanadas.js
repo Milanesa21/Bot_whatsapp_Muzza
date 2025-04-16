@@ -2,7 +2,7 @@ const { addKeyword, EVENTS } = require("@bot-whatsapp/bot");
 const { pedidoActual } = require("../utils/resetPedido");
 const flowAgregarMas = require("./FlowAgregarmas");
 
-// Menú de empanadas numerado
+// Menú de empanadas numerado (excluyendo ítems especiales como "Empanada Libre" o "Empanada Muza Kids")
 const menuEmpanadas = {
   1: "Empanada de Jamón y Queso",
   2: "Empanada de Roquefort",
@@ -20,7 +20,7 @@ const menuEmpanadas = {
   14: "Empanada Árabes",
   15: "Empanada de Charque",
   16: "Empanada de Calabresa",
-  17: "Empanadas de Carne",
+  17: "Empanada de Carne",
   18: "Empanada de Osobuco",
   19: "Empanada de Maturre",
   20: "Empanada de Vacío y Provoleta",
@@ -36,31 +36,47 @@ const generarMenuTexto = () => {
   for (const [key, nombre] of Object.entries(menuEmpanadas)) {
     texto += `${key}. ${nombre}\n`;
   }
-  texto += "\nCada empanada cuesta $1500.";
+  texto += "\nCada empanada cuesta $1700.";
   return texto;
 };
 
 const flowMenuEmpanadas = addKeyword(EVENTS.ACTION)
-  .addAnswer(generarMenuTexto(), { capture: true }, async (ctx, { flowDynamic, fallBack }) => {
-    const seleccion = parseInt(ctx.body);
-    if (!menuEmpanadas[seleccion]) {
-      return fallBack("❌ Opción no válida. Ingresa el número de la empanada que deseas.");
+  .addAnswer(
+    generarMenuTexto(),
+    { capture: true },
+    async (ctx, { flowDynamic, fallBack }) => {
+      const seleccion = parseInt(ctx.body);
+      if (!menuEmpanadas[seleccion]) {
+        return fallBack(
+          "❌ Opción no válida. Ingresa el número de la empanada que deseas."
+        );
+      }
+      // Guardamos la selección en el pedido actual para usarla en el siguiente paso
+      pedidoActual.ultimoProducto = menuEmpanadas[seleccion];
+      return `🥟 Has seleccionado *${menuEmpanadas[seleccion]}*. ¿Cuántas unidades deseas?`;
     }
-    // Guardamos la selección en el pedido actual para usarla en el siguiente paso
-    pedidoActual.ultimoProducto = menuEmpanadas[seleccion];
-    return `🥟 Has seleccionado *${menuEmpanadas[seleccion]}*. ¿Cuántas unidades deseas?`;
-  })
-  .addAnswer("Ingresa la cantidad:", { capture: true }, async (ctx, { flowDynamic, gotoFlow, fallBack }) => {
-    const cantidad = parseInt(ctx.body);
-    if (isNaN(cantidad) || cantidad <= 0) {
-      return fallBack("❌ Ingresa un número válido.");
+  )
+  .addAnswer(
+    "Ingresa la cantidad:",
+    { capture: true },
+    async (ctx, { flowDynamic, gotoFlow, fallBack }) => {
+      const cantidad = parseInt(ctx.body);
+      if (isNaN(cantidad) || cantidad <= 0) {
+        return fallBack("❌ Ingresa un número válido.");
+      }
+      const empanadaSeleccionada = pedidoActual.ultimoProducto;
+      const precioTotal = 1700 * cantidad;
+      pedidoActual.items.push({
+        nombre: empanadaSeleccionada,
+        cantidad,
+        precio: precioTotal,
+      });
+      pedidoActual.total += precioTotal;
+      await flowDynamic(
+        `Agregaste ${cantidad} *${empanadaSeleccionada}* por un total de $${precioTotal}.`
+      );
+      return gotoFlow(flowAgregarMas);
     }
-    const empanadaSeleccionada = pedidoActual.ultimoProducto;
-    const precioTotal = 1500 * cantidad;
-    pedidoActual.items.push({ nombre: empanadaSeleccionada, cantidad, precio: precioTotal });
-    pedidoActual.total += precioTotal;
-    await flowDynamic(`Agregaste ${cantidad} *${empanadaSeleccionada}* por un total de $${precioTotal}.`);
-    return gotoFlow(flowAgregarMas);
-  });
+  );
 
 module.exports = flowMenuEmpanadas;

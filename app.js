@@ -148,7 +148,7 @@ const main = async () => {
     });
 
     server.listen(4000, () => {
-      console.log("Servidor backend corriendo en http://localhost:5000");
+      console.log("Servidor backend corriendo en http://localhost:4000");
     });
 
     // Iniciar el servidor del portal QR

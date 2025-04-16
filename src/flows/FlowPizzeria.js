@@ -3,54 +3,122 @@ const { pedidoActual } = require("../utils/resetPedido");
 const flowSeleccionTamaño = require("./FlowSeleccionTamaño");
 const flowAgregarMas = require("./FlowAgregarmas");
 
-// Objeto con el menú de pizzas principales
+// Objeto con el menú de pizzas principales (excluyendo “Pizza libre”)
 const menuPizzas = {
-  1: { nombre: "Muzzarella", precioChica: 14000, precioGrande: 16000 },
-  2: { nombre: "Rúcula", precioChica: 17000, precioGrande: 19000 },
+  1: {
+    nombre: "Muzzarella",
+    precioChica: 16100, // PIZZA MUZZARELLA CHICA: $16,100.0
+    precioGrande: 18400, // PIZZA MUZZARELLA: $18,400.0
+  },
+  2: {
+    nombre: "Rúcula",
+    precioChica: 19550, // PIZZA RUCULA CHICA: $19,550.0
+    precioGrande: 21850, // PIZZA RUCULA: $21,850.0
+  },
   3: {
     nombre: "Rúcula y Jamón Crudo",
-    precioChica: 19000,
-    precioGrande: 21000,
+    precioChica: 21850, // PIZZA RUCULA Y JAMON CRUDO CHICA: $21,850.0
+    precioGrande: 24150, // PIZZA RUCULA Y JAMON CRUDO: $24,150.0
   },
-  4: { nombre: "Jamón Crudo", precioChica: 18000, precioGrande: 20000 },
-  5: { nombre: "Especial", precioChica: 16000, precioGrande: 18000 },
-  6: { nombre: "Completa", precioChica: 17000, precioGrande: 19000 },
-  7: { nombre: "Capresse", precioChica: 15000, precioGrande: 17000 },
-  8: { nombre: "Muzza Picante", precioChica: 14000, precioGrande: 16000 },
+  4: {
+    nombre: "Jamón Crudo",
+    precioChica: 20700, // PIZZA JAMON CRUDO CHICA: $20,700.0
+    precioGrande: 23000, // PIZZA JAMON CRUDO: $23,000.0
+  },
+  5: {
+    nombre: "Especial",
+    precioChica: 18400, // PIZZA ESPECIAL CHICA: $18,400.0
+    precioGrande: 20700, // PIZZA ESPECIAL: $20,700.0
+  },
+  6: {
+    nombre: "Completa",
+    precioChica: 18400, // PIZZA COMPLETA CHICA: $18,400.0
+    precioGrande: 21850, // PIZZA COMPLETA: $21,850.0
+  },
+  7: {
+    nombre: "Capresse",
+    precioChica: 17250, // PIZZA CAPRESSE CHICA: $17,250.0
+    precioGrande: 19550, // PIZZA CAPRESSE: $19,550.0
+  },
+  8: {
+    nombre: "Muzza Picante",
+    precioChica: 16100, // PIZZA MUZZA PICANTE CHICA: $16,100.0
+    precioGrande: 18400, // PIZZA MUZZA PICANTE: $18,400.0
+  },
   9: {
     nombre: "Jamón, Morrones y Huevo",
-    precioChica: 19000,
-    precioGrande: 21000,
+    precioChica: 19550, // PIZZA JAMON MORRONES Y HUEVO CHICA: $19,550.0
+    precioGrande: 21850, // PIZZA JAMON MORRONES Y HUEVO: $21,850.0
   },
   10: {
     nombre: "Jamón, Morrones y Palmitos",
-    precioChica: 22000,
-    precioGrande: 24000,
+    precioChica: 25300, // PIZZA JAMON MORRONES Y PALMITOS CHICA: $25,300.0
+    precioGrande: 27600, // PIZZA JAMON MORRONES Y PALMITOS: $27,600.0
   },
-  11: { nombre: "Champignon", precioChica: 18000, precioGrande: 20000 },
+  11: {
+    nombre: "Champignon",
+    precioChica: 21850, // PIZZA CHAMPIGNON CHICA: $21,850.0
+    precioGrande: 23000, // PIZZA CHAMPIGNON: $23,000.0
+  },
   12: {
     nombre: "Tomate, Calabresa y Salsa Picante",
-    precioChica: 16000,
-    precioGrande: 18000,
+    precioChica: 19550, // PIZZA TOMATE CALABRESA Y SALSA PICANTE CHICA: $19,550.0
+    precioGrande: 21850, // PIZZA TOMATE CALABRESA Y SALSA PICANTE: $21,850.0
   },
   13: {
     nombre: "Tomate, Jamón y Huevo",
-    precioChica: 18000,
-    precioGrande: 20000,
+    precioChica: 19550, // Se asume que PIZZA TOMATE JAMON Y HUEVO CHICA es $19,550.0
+    precioGrande: 21850, // PIZZA TOMATE JAMON Y HUEVO: $21,850.0
   },
-  14: { nombre: "Anchoas", precioChica: 18000, precioGrande: 20000 },
-  15: { nombre: "Palmitos", precioChica: 18000, precioGrande: 20000 },
-  16: { nombre: "Cuatro Quesos", precioChica: 22000, precioGrande: 24000 },
-  17: { nombre: "Muzza", precioChica: 22000, precioGrande: 24000 },
-  18: { nombre: "Napolitana y Jamón", precioChica: 17000, precioGrande: 19000 },
-  19: { nombre: "Fugazzeta", precioChica: 16000, precioGrande: 18000 },
-  20: { nombre: "Fugazzeta y Jamón", precioChica: 18000, precioGrande: 20000 },
-  21: { nombre: "Calabresa", precioChica: 17000, precioGrande: 19000 },
-  22: { nombre: "Roquefort", precioChica: 18000, precioGrande: 20000 },
+  14: {
+    nombre: "Anchoas",
+    precioChica: 20700, // PIZZA ANCHOAS CHICA: $20,700.0
+    precioGrande: 23000, // PIZZA ANCHOAS: $23,000.0
+  },
+  15: {
+    nombre: "Palmitos",
+    precioChica: 20700, // Se asume similar a “Anchoas” para chica: $20,700.0
+    precioGrande: 23000, // PIZZA PALMITOS: $23,000.0
+  },
+  16: {
+    nombre: "Cuatro Quesos",
+    precioChica: 18400, // PIZZA CUATRO QUESOS CHICA: $18,400.0
+    precioGrande: 25300, // PIZZA CUATRO QUESOS: $25,300.0
+  },
+  17: {
+    nombre: "Muzza",
+    precioChica: 25300, // PIZZA MUZZA (diferente a Muzzarella) – chica: $25,300.0
+    precioGrande: 27600, // PIZZA MUZZA – grande: $27,600.0
+  },
+  18: {
+    nombre: "Napolitana y Jamón",
+    precioChica: 19550, // PIZZA NAPOLITANA Y JAMON CHICA: $19,550.0
+    precioGrande: 21850, // PIZZA NAPOLITANA Y JAMON: $21,850.0
+  },
+  19: {
+    nombre: "Fugazzeta",
+    precioChica: 18400, // PIZZA FUGAZZETA CHICA: $18,400.0
+    precioGrande: 20700, // PIZZA FUGAZZETA: $20,700.0
+  },
+  20: {
+    nombre: "Fugazzeta y Jamón",
+    precioChica: 19550, // PIZZA FUGAZZETA Y JAMON CHICA: $19,550.0
+    precioGrande: 21850, // PIZZA FUGAZZETA Y JAMON: $21,850.0
+  },
+  21: {
+    nombre: "Calabresa",
+    precioChica: 19550, // PIZZA CALABRESA CHICA: $19,550.0
+    precioGrande: 21850, // PIZZA CALABRESA: $21,850.0
+  },
+  22: {
+    nombre: "Roquefort",
+    precioChica: 18400, // PIZZA ROQUEFORT CHICA: $18,400.0
+    precioGrande: 20700, // PIZZA ROQUEFORT: $20,700.0
+  },
   23: {
     nombre: "Pollo a la Barbacoa",
-    precioChica: 18000,
-    precioGrande: 20000,
+    precioChica: 20700, // PIZZA POLLO A LA BARBACOA CHICA: $20,700.0
+    precioGrande: 23000, // PIZZA POLLO A LA BARBACOA: $23,000.0
   },
 };
 
@@ -61,7 +129,8 @@ const generarMenuTexto = () => {
   for (const [key, value] of Object.entries(menuPizzas)) {
     if (key <= 23) {
       menuTexto += `${key}. ${value.nombre} (Chica: $${value.precioChica} - Grande: $${value.precioGrande})\n`;
-  }}
+    }
+  }
   return menuTexto;
 };
 

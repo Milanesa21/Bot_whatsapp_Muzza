@@ -2,7 +2,7 @@ const { addKeyword, EVENTS } = require("@bot-whatsapp/bot");
 const { pedidoActual } = require("../utils/resetPedido");
 const flowAgregarMas = require("./FlowAgregarmas");
 
-// Objeto con el menú de sándwiches
+// Objeto con el menú de sándwiches, hamburguesas, alitos y demás ítems (según el excel)
 const menuSandwiches = {
   1: { nombre: "Hamburguesa Especial", precio: 9000 },
   2: { nombre: "Hamburguesa Completa", precio: 9500 },
@@ -11,12 +11,20 @@ const menuSandwiches = {
   5: { nombre: "Alito de Pollo Especial", precio: 14000 },
   6: { nombre: "Alito de Pollo Completo", precio: 15000 },
   7: { nombre: "Tostado de Jamón y Queso", precio: 6000 },
+  8: { nombre: "Sándwich de Miga x12", precio: 9000 },
+  9: { nombre: "Sándwich de Miga de Verdura x12", precio: 6500 },
+  10: { nombre: "Sándwich de Miga de Verdura x6", precio: 6000 },
+  11: { nombre: "Sándwich Masa Madre Mini", precio: 2300 },
+  12: { nombre: "Sándwich Masa Madre Verdura", precio: 5000 },
+  13: { nombre: "Sándwich Pan Masa Madre", precio: 6000 },
+  14: { nombre: "Sandwiche de Bondiola de Cerdo Clásico", precio: 8000 },
+  15: { nombre: "Sandwiche de Bondiola de Cerdo Criolla", precio: 8500 },
 };
 
 // Función para generar el texto del menú
 const generarMenuTexto = () => {
   let menuTexto = "🥪 *MENÚ DE SÁNDWICHES* 🥪\n\n";
-  menuTexto += "Elige un sándwich:\n\n";
+  menuTexto += "Elige un sándwich, hamburguesa, alito o similar:\n\n";
   for (const [key, value] of Object.entries(menuSandwiches)) {
     menuTexto += `${key}. ${value.nombre} - $${value.precio}\n`;
   }
@@ -40,17 +48,17 @@ const flowMenuSandwiches = addKeyword(EVENTS.ACTION)
       if (
         !validarSeleccion(seleccion, Object.keys(menuSandwiches).map(Number))
       ) {
-        return fallBack("❌ Por favor, selecciona una opción válida (1-9)");
+        return fallBack("❌ Por favor, selecciona una opción válida (1-15)");
       }
 
       const opcion = parseInt(seleccion);
-      const sandwich = menuSandwiches[opcion];
+      const itemSeleccionado = menuSandwiches[opcion];
 
-      // Guardamos temporalmente el sándwich seleccionado
-      pedidoActual.ultimoProducto = sandwich;
+      // Guardamos temporalmente el producto seleccionado
+      pedidoActual.ultimoProducto = itemSeleccionado;
 
       await flowDynamic(
-        `🥪 Has seleccionado *${sandwich.nombre}* ($${sandwich.precio}).`
+        `🥪 Has seleccionado *${itemSeleccionado.nombre}* ($${itemSeleccionado.precio}).`
       );
       return "¿Cuántas unidades deseas?";
     }
@@ -65,22 +73,22 @@ const flowMenuSandwiches = addKeyword(EVENTS.ACTION)
         return fallBack("❌ Por favor, ingresa un número válido (1 o más).");
       }
 
-      const sandwich = pedidoActual.ultimoProducto;
-      const precioTotal = sandwich.precio * cantidad;
+      const item = pedidoActual.ultimoProducto;
+      const precioTotal = item.precio * cantidad;
 
       // Agregamos al pedido actual
       pedidoActual.items.push({
-        nombre: sandwich.nombre,
+        nombre: item.nombre,
         cantidad,
-        precioUnitario: sandwich.precio,
+        precioUnitario: item.precio,
         precioTotal,
       });
 
       pedidoActual.total += precioTotal;
 
       await flowDynamic(
-        `✅ Has agregado ${cantidad} unidad(es) de *${sandwich.nombre}*.\n` +
-          `💰 Precio unitario: $${sandwich.precio}\n` +
+        `✅ Has agregado ${cantidad} unidad(es) de *${item.nombre}*.\n` +
+          `💰 Precio unitario: $${item.precio}\n` +
           `💵 Total por este ítem: $${precioTotal}\n\n` +
           `🛒 Total acumulado: $${pedidoActual.total}`
       );
