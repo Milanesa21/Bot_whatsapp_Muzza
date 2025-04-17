@@ -1,0 +1,45 @@
+[handleMsg]:  {
+  key: {
+    remoteJid: '5493704043548@s.whatsapp.net',
+    fromMe: false,
+    id: '568E2288FCCC42766EEA06D37269245F',
+    participant: undefined
+  },
+  messageTimestamp: 1744849128,
+  pushName: 'f"This Is {}"',
+  broadcast: false,
+  messageStubType: 2,
+  messageStubParameters: [ 'Message absent from node' ],
+  body: undefined,
+  from: '5493704043548'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5493704043548@s.whatsapp.net',
+    fromMe: false,
+    id: '568E2288FCCC42766EEA06D37269245F',
+    participant: undefined
+  },
+  messageTimestamp: 1744849130,
+  pushName: 'f"This Is {}"',
+  broadcast: false,
+  messageStubType: 2,
+  messageStubParameters: [ 'Message absent from node' ],
+  body: undefined,
+  from: '5493704043548'
+}
+[handleMsg]:  {
+  key: {
+    remoteJid: '5493704043548@s.whatsapp.net',
+    fromMe: false,
+    id: '568E2288FCCC42766EEA06D37269245F',
+    participant: undefined
+  },
+  messageTimestamp: 1744849132,
+  pushName: 'f"This Is {}"',
+  broadcast: false,
+  messageStubType: 2,
+  messageStubParameters: [ 'Message absent from node' ],
+  body: undefined,
+  from: '5493704043548'
+}
