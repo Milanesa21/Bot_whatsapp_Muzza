@@ -30,7 +30,7 @@ const flowMenuEmpanadas = require("./src/flows/flowMenuEmpanadas");
 const flowSeleccionTamaño = require("./src/flows/FlowSeleccionTamaño");
 const flowAgregarMas = require("./src/flows/FlowAgregarmas");
 const flowDelivery = require("./src/flows/FlowDelivery");
-const flowDireccion = require("./src/flows/FlowDireccion")
+const flowDireccion = require("./src/flows/FlowDireccion");
 const flowDetallesPedido = require("./src/flows/FlowDetalles");
 const flowNombreCliente = require("./src/flows/FlowNombrecliente");
 const flowMetodoPago = require("./src/flows/FlowMetodoPago");
@@ -39,8 +39,8 @@ const flowHorarioEspecifico = require("./src/flows/FlowHoraEspecifica");
 const flowConfirmacionPedido = require("./src/flows/FlowConfirmacion");
 const flowConsultas = require("./src/flows/FlowConsultas");
 const flowVoice = require("./src/flows/FlowVoice");
-const FlowSeleccionMenu = require("./src/flows/FlowSeleccionMenu")
-const flowGaseosas = require("./src/flows/flowGaseosa")
+const FlowSeleccionMenu = require("./src/flows/FlowSeleccionMenu");
+const flowGaseosas = require("./src/flows/flowGaseosa");
 
 const flujos = [
   flowPrincipal,
@@ -65,26 +65,58 @@ const flujos = [
   flowGaseosas,
 ];
 
-
 console.log("Flujos cargados:", flujos);
 
 const adapterFlow = createFlow(flujos);
 
-// Configuración Express y Socket.io
+// Configuración CORS para Express
 app.use(
   cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: [
+      "http://localhost:3000",
+      "https://frontpedidosmuzza-production.up.railway.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+// Middleware adicional para CORS
+app.use((req, res, next) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    req.headers.origin || "http://localhost:3000"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+
+  // Handle preflight requests
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 app.use(express.json());
 app.use("/pedidos", pedidosRoutes);
+
 const server = http.createServer(app);
+
+// Configuración de Socket.io
 const io = new Server(server, {
   cors: {
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: [
+      "http://localhost:3000",
+      "https://frontpedidosmuzza-production.up.railway.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: false,
   },
+  transports: ["websocket", "polling"],
 });
 
 // Escuchar conexiones de Socket.IO
