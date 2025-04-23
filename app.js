@@ -74,9 +74,6 @@ const flujos = [
   flowGaseosas,
 ];
 
-console.log("Flujos cargados:", flujos);
-
-const adapterFlow = createFlow(flujos);
 
 // Configuración CORS para Express
 app.use(
