@@ -19,9 +19,10 @@ const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
 const { inicializarBaseDeDatos } = require("./db");
-const certificate = process.env.CLOUDFLARE_CERTIFICATE ;
-const privateKey = process.env.CLOUDFLARE_PRIVATE_KEY ;
 
+ const certificate = fs.readFileSync(path.join(__dirname, "cert.pem"));
+ const privateKey = fs.readFileSync(path.join(__dirname, "key.pem"));
+ 
 
 const https = require("https");
 
@@ -111,8 +112,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use("/pedidos", pedidosRoutes);
 
-const server = https.createServer({ certificate, privateKey }, app);
-
+const server = https.createServer({ cert: certificate, key: privateKey }, app);
 // Configuración de Socket.io
 const io = new Server(server, {
   cors: {
