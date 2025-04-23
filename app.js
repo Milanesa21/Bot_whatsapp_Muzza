@@ -19,6 +19,15 @@ const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
 const { inicializarBaseDeDatos } = require("./db");
+const certificate = process.env.CLOUDFLARE_CERTIFICATE ;
+const privateKey = process.env.CLOUDFLARE_PRIVATE_KEY ;
+
+
+const https = require("https");
+
+
+
+
 
 // Importar los flujos modularizados
 const flowPrincipal = require("./src/flows/FlowPrincipal");
@@ -105,7 +114,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use("/pedidos", pedidosRoutes);
 
-const server = http.createServer(app);
+const server = https.createServer({ certificate, privateKey }, app);
 
 // Configuración de Socket.io
 const io = new Server(server, {
