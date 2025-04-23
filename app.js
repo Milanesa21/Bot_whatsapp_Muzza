@@ -85,7 +85,9 @@ app.use(
 app.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Origin",
-    req.headers.origin || "http://localhost:3000"
+    req.headers.origin ||
+      "http://localhost:3000" ||
+      "https://frontpedidosmuzza-production.up.railway.app"
   );
   res.header(
     "Access-Control-Allow-Headers",
@@ -118,6 +120,10 @@ const io = new Server(server, {
   },
   transports: ["websocket", "polling"],
 });
+
+// Añade para manejar proxies
+app.set('trust proxy', true);
+
 
 // Escuchar conexiones de Socket.IO
 io.on("connection", (socket) => {
