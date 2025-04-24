@@ -196,8 +196,8 @@ const main = async () => {
       database: adapterDB,
     });
 
-    server.listen(4000, () => {
-      console.log("Servidor backend corriendo en http://localhost:4000");
+    server.listen(6000, () => {
+      console.log("Servidor backend corriendo en http://localhost:6000");
     });
 
     // Iniciar el servidor del portal QR
