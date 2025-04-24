@@ -196,9 +196,10 @@ const main = async () => {
       database: adapterDB,
     });
 
-    server.listen(6000, () => {
-      console.log("Servidor backend corriendo en http://localhost:6000");
-    });
+const PORT = process.env.PORT || 6000;
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`Servidor corriendo en puerto ${PORT}`);
+});
 
     // Iniciar el servidor del portal QR
     QRPortalWeb({ port: 5000 });
