@@ -1,36 +1,21 @@
-// librerias para el bot
-const {
-  createBot,
-  createProvider,
-  createFlow,
-  addKeyword,
-  EVENTS,
-} = require("@bot-whatsapp/bot");
+// librerías para el bot
 require("dotenv").config();
-const QRPortalWeb = require("@bot-whatsapp/portal");
-const BaileysProvider = require("@bot-whatsapp/provider/baileys");
-const MockAdapter = require("@bot-whatsapp/database/json");
-const path = require("path");
-const fs = require("fs");
 const express = require("express");
-const app = express();
-const pedidosRoutes = require("./routes/pedidosRoutes");
 const cors = require("cors");
 const http = require("http");
+const fs = require("fs");
+const path = require("path");
 const { Server } = require("socket.io");
+const { createBot, createProvider, createFlow } = require("@bot-whatsapp/bot");
+const BaileysProvider = require("@bot-whatsapp/provider/baileys");
+const MockAdapter = require("@bot-whatsapp/database/json");
+const QRPortalWeb = require("@bot-whatsapp/portal");
+
+// rutas y base de datos
+const pedidosRoutes = require("./routes/pedidosRoutes");
 const { inicializarBaseDeDatos } = require("./db");
 
- const certificate = fs.readFileSync(path.join(__dirname, "cert.pem"));
- const privateKey = fs.readFileSync(path.join(__dirname, "key.pem"));
- 
-
-const https = require("https");
-
-
-
-
-
-// Importar los flujos modularizados
+// flujos modularizados
 const flowPrincipal = require("./src/flows/FlowPrincipal");
 const flowWelcome = require("./src/flows/FlowWelcome");
 const flowMenuPizzeria = require("./src/flows/FlowPizzeria");
@@ -75,8 +60,10 @@ const flujos = [
   flowGaseosas,
 ];
 
+// express setup
+const app = express();
+app.set("trust proxy", true);
 
-// Configuración CORS para Express
 app.use(
   cors({
     origin: [
@@ -88,7 +75,7 @@ app.use(
   })
 );
 
-// Middleware adicional para CORS
+// Middleware CORS adicional
 app.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Origin",
@@ -101,19 +88,20 @@ app.use((req, res, next) => {
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-
-  // Handle preflight requests
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
+  if (req.method === "OPTIONS") return res.sendStatus(200);
   next();
 });
 
 app.use(express.json());
 app.use("/pedidos", pedidosRoutes);
 
-const server = https.createServer({ cert: certificate, key: privateKey }, app);
-// Configuración de Socket.io
+// crear carpeta tmp si no existe
+if (!fs.existsSync("./tmp")) {
+  fs.mkdirSync("./tmp");
+}
+
+// socket.io + servidor
+const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: [
@@ -121,73 +109,36 @@ const io = new Server(server, {
       "https://frontpedidosmuzza-production.up.railway.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: false,
   },
-  transports: ["websocket", "polling"],
 });
 
-// Añade para manejar proxies
-app.set('trust proxy', true);
-
-
-// Escuchar conexiones de Socket.IO
 io.on("connection", (socket) => {
-  console.log("Un cliente se ha conectado:", socket.id);
-
-  // Escuchar desconexiones
+  console.log("Cliente conectado:", socket.id);
   socket.on("disconnect", () => {
-    console.log("Un cliente se ha desconectado:", socket.id);
+    console.log("Cliente desconectado:", socket.id);
   });
 });
 
-// Ruta de ejemplo
+// ruta de prueba
 app.get("/", (req, res) => {
-  res.send("Servidor Socket.IO funcionando");
+  res.send("Servidor funcionando correctamente ✅");
 });
 
-// Creación de carpeta temporal para archivos de voz si no existe
-if (!fs.existsSync("./tmp")) {
-  fs.mkdirSync("./tmp");
-}
-
-// Inicializar la base de datos antes de iniciar el bot
+// inicializar base de datos y arrancar bot
 inicializarBaseDeDatos()
   .then(() => {
-    console.log("Base de datos inicializada correctamente.");
+    console.log("✅ Base de datos inicializada correctamente.");
     main();
   })
-  .catch((error) => {
-    console.error("Error al inicializar la base de datos:", error);
-    process.exit(1); // Salir del proceso si hay un error crítico
+  .catch((err) => {
+    console.error("❌ Error al inicializar la base de datos:", err);
+    process.exit(1);
   });
 
-// Inicialización del bot
 const main = async () => {
   try {
     const adapterDB = new MockAdapter();
-    const adapterFlow = createFlow([
-      flowPrincipal,
-      flowWelcome,
-      flowMenuPizzeria,
-      flowMenuPanaderia,
-      flowMenuSandwiches,
-      flowMenuEmpanadas,
-      flowGaseosas,
-      flowSeleccionTamaño,
-      flowAgregarMas,
-      flowDelivery,
-      flowDireccion,
-      flowDetallesPedido,
-      flowNombreCliente,
-      flowMetodoPago,
-      flowHorario,
-      flowHorarioEspecifico,
-      flowConfirmacionPedido,
-      flowConsultas,
-      FlowSeleccionMenu,
-      flowVoice,
-    ]);
+    const adapterFlow = createFlow(flujos);
     const adapterProvider = createProvider(BaileysProvider);
 
     createBot({
@@ -196,15 +147,16 @@ const main = async () => {
       database: adapterDB,
     });
 
-const PORT = process.env.PORT || 6000;
-server.listen(PORT, "0.0.0.0", () => {
-  console.log(`Servidor corriendo en puerto ${PORT}`);
-});
+    const PORT = process.env.PORT || 6000;
+    server.listen(PORT, "0.0.0.0", () => {
+      console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
+    });
 
-    // Iniciar el servidor del portal QR
-    QRPortalWeb({ port: 5000 });
-    console.log("Servidor iniciado en http://localhost:5000");
+    if (process.env.NODE_ENV !== "production") {
+      QRPortalWeb({ port: 5000 });
+      console.log("🔓 QR Portal en http://localhost:5000");
+    }
   } catch (error) {
-    console.error("Error en main:", error);
+    console.error("❌ Error al iniciar el bot:", error);
   }
 };
