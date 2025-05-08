@@ -1,8 +1,7 @@
 const { addKeyword, EVENTS } = require("@bot-whatsapp/bot");
-const { pedidoActual } = require("../utils/resetPedido");
+const { getPedidoActual } = require("../utils/resetPedido");
 const flowAgregarMas = require("./FlowAgregarmas");
 
-// Menú de empanadas numerado (excluyendo ítems especiales como "Empanada Libre" o "Empanada Muza Kids")
 const menuEmpanadas = {
   1: "Empanada de Jamón y Queso",
   2: "Empanada de Roquefort",
@@ -40,42 +39,78 @@ const generarMenuTexto = () => {
   return texto;
 };
 
+const validarSeleccion = (seleccion, opciones) => {
+  const opcion = parseInt(seleccion);
+  return !isNaN(opcion) && opciones.includes(opcion);
+};
+
 const flowMenuEmpanadas = addKeyword(EVENTS.ACTION)
   .addAnswer(
     generarMenuTexto(),
     { capture: true },
-    async (ctx, { flowDynamic, fallBack }) => {
-      const seleccion = parseInt(ctx.body);
-      if (!menuEmpanadas[seleccion]) {
-        return fallBack(
-          "❌ Opción no válida. Ingresa el número de la empanada que deseas."
-        );
+    async (ctx, { flowDynamic, fallBack, state }) => {
+      const seleccion = ctx.body;
+      const currentPedido = await getPedidoActual(state);
+
+      if (
+        !validarSeleccion(seleccion, Object.keys(menuEmpanadas).map(Number))
+      ) {
+        return fallBack("❌ Por favor, selecciona una opción válida (1-24)");
       }
-      // Guardamos la selección en el pedido actual para usarla en el siguiente paso
-      pedidoActual.ultimoProducto = menuEmpanadas[seleccion];
-      return `🥟 Has seleccionado *${menuEmpanadas[seleccion]}*. ¿Cuántas unidades deseas?`;
+
+      const opcion = parseInt(seleccion);
+      const empanadaSeleccionada = menuEmpanadas[opcion];
+
+      await state.update({
+        pedidoActual: {
+          ...currentPedido,
+          ultimoProducto: empanadaSeleccionada,
+        },
+      });
+
+      await flowDynamic(`🥟 Has seleccionado *${empanadaSeleccionada}*.`);
+      return "¿Cuántas unidades deseas?";
     }
   )
   .addAnswer(
     "Ingresa la cantidad:",
     { capture: true },
-    async (ctx, { flowDynamic, gotoFlow, fallBack }) => {
+    async (ctx, { flowDynamic, fallBack, gotoFlow, state }) => {
       const cantidad = parseInt(ctx.body);
+      const currentPedido = await getPedidoActual(state);
+
       if (isNaN(cantidad) || cantidad <= 0) {
-        return fallBack("❌ Ingresa un número válido.");
+        return fallBack("❌ Ingresa un número válido (1 o más).");
       }
-      const empanadaSeleccionada = pedidoActual.ultimoProducto;
-      const precioTotal = 1700 * cantidad;
-      pedidoActual.items.push({
-        nombre: empanadaSeleccionada,
+
+      const precioUnitario = 1700;
+      const precioTotal = precioUnitario * cantidad;
+      const nuevoItem = {
+        nombre: currentPedido.ultimoProducto,
         cantidad,
-        precio: precioTotal,
+        precioUnitario,
+        precioTotal,
+      };
+
+      const nuevosItems = [...currentPedido.items, nuevoItem];
+
+      await state.update({
+        pedidoActual: {
+          ...currentPedido,
+          items: nuevosItems,
+          total: currentPedido.total + precioTotal,
+          ultimoProducto: null,
+        },
       });
-      pedidoActual.total += precioTotal;
+
       await flowDynamic(
-        `Agregaste ${cantidad} *${empanadaSeleccionada}* por un total de $${precioTotal}.`
+        `✅ Agregadas ${cantidad} empanada(s) de *${nuevoItem.nombre}*\n` +
+          `💰 Precio unitario: $${precioUnitario}\n` +
+          `💵 Total por este ítem: $${precioTotal}\n` +
+          `🛒 Total acumulado: $${currentPedido.total + precioTotal}`
       );
-      return gotoFlow(flowAgregarMas);
+
+      return gotoFlow(require("./FlowAgregarmas"));
     }
   );
 

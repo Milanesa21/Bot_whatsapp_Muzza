@@ -1,17 +1,15 @@
-// librerías para el bot
+// app.js (servidor principal)
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const http = require("http");
 const fs = require("fs");
-const path = require("path");
-const { Server } = require("socket.io");
+const { init: initSocket } = require("./socket");   
 const { createBot, createProvider, createFlow } = require("@bot-whatsapp/bot");
 const BaileysProvider = require("@bot-whatsapp/provider/baileys");
 const MockAdapter = require("@bot-whatsapp/database/json");
 const QRPortalWeb = require("@bot-whatsapp/portal");
 
-// rutas y base de datos
 const pedidosRoutes = require("./routes/pedidosRoutes");
 const { inicializarBaseDeDatos } = require("./db");
 
@@ -33,9 +31,10 @@ const flowHorario = require("./src/flows/FlowHorario");
 const flowHorarioEspecifico = require("./src/flows/FlowHoraEspecifica");
 const flowConfirmacionPedido = require("./src/flows/FlowConfirmacion");
 const flowConsultas = require("./src/flows/FlowConsultas");
-const flowVoice = require("./src/flows/FlowVoice");
 const FlowSeleccionMenu = require("./src/flows/FlowSeleccionMenu");
 const flowGaseosas = require("./src/flows/flowGaseosa");
+const flowPastas = require("./src/flows/flowPastas");
+const flowPanaderia = require("./src/flows/FlowPanaderia")
 
 const flujos = [
   flowPrincipal,
@@ -56,14 +55,14 @@ const flujos = [
   flowConfirmacionPedido,
   flowConsultas,
   FlowSeleccionMenu,
-  flowVoice,
   flowGaseosas,
+  flowPastas,
+  flowPanaderia,
 ];
-
-// express setup
 const app = express();
 app.set("trust proxy", true);
 
+// CORS
 app.use(
   cors({
     origin: [
@@ -93,6 +92,21 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+
+// 🔔 Inyectamos `io` en cada petición para poder emitir desde las rutas
+const server = http.createServer(app);
+const io = initSocket(server, {
+  origin: [
+    "http://localhost:3000",
+    "https://frontpedidosmuzza-production.up.railway.app"
+  ],
+  methods: ["GET","POST","PUT","DELETE","OPTIONS"]
+});
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
+
 app.use("/pedidos", pedidosRoutes);
 
 // crear carpeta tmp si no existe
@@ -100,18 +114,7 @@ if (!fs.existsSync("./tmp")) {
   fs.mkdirSync("./tmp");
 }
 
-// socket.io + servidor
-const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: [
-      "http://localhost:3000",
-      "https://frontpedidosmuzza-production.up.railway.app",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  },
-});
-
+// socket.io básico para logging de conexiones
 io.on("connection", (socket) => {
   console.log("Cliente conectado:", socket.id);
   socket.on("disconnect", () => {
@@ -124,7 +127,7 @@ app.get("/", (req, res) => {
   res.send("Servidor funcionando correctamente ✅");
 });
 
-// inicializar base de datos y arrancar bot
+// inicializar DB y arrancar bot
 inicializarBaseDeDatos()
   .then(() => {
     console.log("✅ Base de datos inicializada correctamente.");
@@ -147,10 +150,11 @@ const main = async () => {
       database: adapterDB,
     });
 
-    const PORT = process.env.PORT || 6000;
+    const PORT = process.env.PORT || 7000;
     server.listen(PORT, "0.0.0.0", () => {
       console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
     });
+
 
     if (process.env.NODE_ENV !== "production") {
       QRPortalWeb({ port: 5000 });

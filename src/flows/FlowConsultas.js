@@ -11,7 +11,7 @@ const flowConsultas = addKeyword(EVENTS.ACTION)
     const mensaje = ctx.body.trim().toLowerCase();
     if (mensaje === "muzza") {
       // Se redirige al flujo principal cuando el mensaje sea "muzza"
-      return gotoFlow(flowPrincipal);
+      return gotoFlow(require("./FlowPrincipal"));
     } else {
       // Si el mensaje no es "muzza", el bot no responde nada y se queda a la espera.
       return fallBack();

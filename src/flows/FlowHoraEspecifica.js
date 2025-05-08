@@ -1,16 +1,24 @@
 const { addKeyword, EVENTS } = require("@bot-whatsapp/bot");
-const { pedidoActual } = require("../utils/resetPedido");
-const flowConfirmacionPedido = require("./FlowConfirmacion")
-
+const { getPedidoActual } = require("../utils/resetPedido"); // Cambiamos la importación
+const flowConfirmacionPedido = require("./FlowConfirmacion");
 
 const flowHorarioEspecifico = addKeyword(EVENTS.ACTION).addAnswer(
   "¿Para qué horario específico lo deseas? (Ej: 20:30)",
   { capture: true },
-  async (ctx, { gotoFlow, flowDynamic, fallBack }) => {
+  async (ctx, { gotoFlow, flowDynamic, fallBack, state }) => {
+    // Añadimos state
     const horarioIngresado = ctx.body;
+    const currentPedido = await getPedidoActual(state); // Obtenemos el estado actual
 
     if (/\d+[:]\d+/.test(horarioIngresado) || horarioIngresado.includes(":")) {
-      pedidoActual.horario = horarioIngresado;
+      // Actualizamos el estado con el nuevo horario
+      await state.update({
+        pedidoActual: {
+          ...currentPedido,
+          horario: horarioIngresado,
+        },
+      });
+
       await flowDynamic(
         `Perfecto, tu pedido será para las ${horarioIngresado}`
       );
@@ -22,4 +30,4 @@ const flowHorarioEspecifico = addKeyword(EVENTS.ACTION).addAnswer(
   }
 );
 
-module.exports =  flowHorarioEspecifico ;
+module.exports = flowHorarioEspecifico;

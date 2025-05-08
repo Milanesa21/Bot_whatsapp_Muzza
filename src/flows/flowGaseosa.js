@@ -1,8 +1,7 @@
 const { addKeyword, EVENTS } = require("@bot-whatsapp/bot");
-const { pedidoActual } = require("../utils/resetPedido");
+const { getPedidoActual } = require("../utils/resetPedido");
 const flowAgregarMas = require("./FlowAgregarmas");
 
-// Menú de bebidas basado en el excel: refrescos, aguas y cervezas
 const menuBebidas = {
   1: { nombre: "PEPSI 1.5L", precio: 4300 },
   2: { nombre: "PEPSI 354ML", precio: 2100 },
@@ -47,8 +46,10 @@ const flowGaseosas = addKeyword(EVENTS.ACTION)
   .addAnswer(
     generarMenuTexto(),
     { capture: true },
-    async (ctx, { flowDynamic, fallBack }) => {
+    async (ctx, { flowDynamic, fallBack, state }) => {
       const seleccion = ctx.body;
+      const currentPedido = await getPedidoActual(state);
+
       if (!validarSeleccion(seleccion, Object.keys(menuBebidas).map(Number))) {
         return fallBack("❌ Por favor, selecciona una opción válida (1-23).");
       }
@@ -56,8 +57,12 @@ const flowGaseosas = addKeyword(EVENTS.ACTION)
       const opcion = parseInt(seleccion);
       const bebida = menuBebidas[opcion];
 
-      // Guardamos temporalmente la bebida seleccionada
-      pedidoActual.ultimoProducto = bebida;
+      await state.update({
+        pedidoActual: {
+          ...currentPedido,
+          ultimoProducto: bebida,
+        },
+      });
 
       await flowDynamic(
         `🥤 Has seleccionado *${bebida.nombre}* ($${bebida.precio}).`
@@ -68,34 +73,44 @@ const flowGaseosas = addKeyword(EVENTS.ACTION)
   .addAnswer(
     "Ingresa la cantidad:",
     { capture: true },
-    async (ctx, { flowDynamic, fallBack, gotoFlow }) => {
+    async (ctx, { flowDynamic, fallBack, gotoFlow, state }) => {
       const cantidad = parseInt(ctx.body);
+      const currentPedido = await getPedidoActual(state);
 
       if (isNaN(cantidad) || cantidad <= 0) {
         return fallBack("❌ Por favor, ingresa un número válido (1 o más).");
       }
 
-      const bebida = pedidoActual.ultimoProducto;
+      const bebida = currentPedido.ultimoProducto;
       const precioTotal = bebida.precio * cantidad;
 
-      // Agregamos al pedido actual
-      pedidoActual.items.push({
-        nombre: bebida.nombre,
-        cantidad,
-        precioUnitario: bebida.precio,
-        precioTotal,
-      });
+      const nuevosItems = [
+        ...currentPedido.items,
+        {
+          nombre: bebida.nombre,
+          cantidad,
+          precioUnitario: bebida.precio,
+          precioTotal,
+        },
+      ];
 
-      pedidoActual.total += precioTotal;
+      await state.update({
+        pedidoActual: {
+          ...currentPedido,
+          items: nuevosItems,
+          total: currentPedido.total + precioTotal,
+          ultimoProducto: null,
+        },
+      });
 
       await flowDynamic(
         `✅ Has agregado ${cantidad} unidad(es) de *${bebida.nombre}*.\n` +
           `💰 Precio unitario: $${bebida.precio}\n` +
           `💵 Total por este ítem: $${precioTotal}\n\n` +
-          `🛒 Total acumulado: $${pedidoActual.total}`
+          `🛒 Total acumulado: $${currentPedido.total + precioTotal}`
       );
 
-      return gotoFlow(flowAgregarMas);
+      return gotoFlow(require("./FlowAgregarmas"));
     }
   );
 

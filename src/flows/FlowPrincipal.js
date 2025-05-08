@@ -1,43 +1,18 @@
 const { addKeyword, EVENTS } = require("@bot-whatsapp/bot");
-const { resetPedido, pedidoActual } = require("../utils/resetPedido");
+const { resetPedido, getPedidoActual } = require("../utils/resetPedido");
 const flowMenuPizzeria = require("./FlowPizzeria");
 const flowMenuSandwiches = require("./FlowSandwiches");
 const flowMenuEmpanadas = require("./flowMenuEmpanadas");
 const flowGaseosas = require("./flowGaseosa");
-const flowConsultas = require("./FlowConsultas"); 
+const flowConsultas = require("./FlowConsultas");
+const flowPanaderia = require("./FlowPanaderia");
+const flowPastas = require("./flowPastas");
 
-const flowPrincipal = addKeyword([
-  "Hola",
-  "jola",
-  "alo",
-  "ole",
-  "Buenos días",
-  "Buenas tardes",
-  "Buenas noches",
-  "Saludos",
-  "Hola, buenas",
-  "Hola, buenos días",
-  "Hola, buenas tardes",
-  "Hola, buenas noches",
-  "Hola, ¿cómo están?",
-  "Buen día",
-  "Hola, buen día",
-  "Hola, ¿cómo estás?",
-  "Hola, ¿cómo está?",
-  "ola",
-  "holi",
-  "holis",
-  "jolis",
-  "holas",
-  "holus",
-  "oa",
-  "oal",
-])
-  .addAction(async (_, { flowDynamic }) => {
-    resetPedido();
+const flowPrincipal = addKeyword(EVENTS.ACTION)
+  .addAction(async (_, { flowDynamic, state }) => {
+    await resetPedido(state);
     await flowDynamic(
-      "¡Hola! 👋 Bienvenido a *Muzza*. 🧀🍕\n\n" +
-        "Recuerda que recibes un descuento especial al realizar pedidos por nuestra página: 🌐\n" +
+      "Recuerda que recibes un descuento especial al realizar pedidos por nuestra página: 🌐\n" +
         "👉 https://pedidos.masdelivery.com/muzza 👈"
     );
   })
@@ -45,65 +20,89 @@ const flowPrincipal = addKeyword([
   .addAnswer(
     [
       "1️⃣ Ver nuestro menú de *Pizzería* 🍕",
-      "2️⃣ Ver nuestro menú de *Sándwiches* 🥪",
+      "2️⃣ Ver nuestro menú de *Hamburguesas/Alitos* 🥪",
       "3️⃣ Ver nuestro menú de *Empanadas* 🥟",
-      "4️⃣ Ver nuestro menú de *Gaseosas, Aguas Saborizadas y Bebidas* 🥤",
-      "5️⃣ Hablar con un *empleado* para consultas 🧑‍💼",
-      "\nPuedes responder con el número o escribir lo que deseas. 😊",
+      "4️⃣ Ver nuestro menú de *Bebidas* 🥤",
+      "5️⃣ Ver nuestro menú de *Panadería* 🥐",
+      "6️⃣ Ver nuestro menú de *Pastas* 🍝",
+      "7️⃣ Hablar con un *empleado* 🧑‍💼",
+      "\nResponde con el número o escribe lo que deseas. 😊",
     ].join("\n"),
     { capture: true },
-    async (ctx, { gotoFlow, flowDynamic, fallBack }) => {
+    async (ctx, { gotoFlow, flowDynamic, fallBack, state }) => {
       const respuesta = ctx.body.toLowerCase();
+      const currentPedido = await getPedidoActual(state);
 
       if (respuesta.includes("1") || respuesta.includes("pizz")) {
-        pedidoActual.tipo = "Pizzería";
+        await state.update({
+          pedidoActual: { ...currentPedido, tipo: "Pizzería" },
+        });
         await flowDynamic("🍕 *Has seleccionado la opción de Pizzería* 🍕");
         return gotoFlow(flowMenuPizzeria);
       } else if (
         respuesta.includes("2") ||
-        respuesta.includes("sandwich") ||
-        respuesta.includes("sanguich") ||
-        respuesta.includes("sangui")
+        respuesta.includes("Hamburguesa") ||
+        respuesta.includes("hamb") ||
+        respuesta.includes("alito") ||
+        respuesta.includes("burguer")
       ) {
-        pedidoActual.tipo = "Sándwiches";
+        await state.update({
+          pedidoActual: { ...currentPedido, tipo: "Sándwiches" },
+        });
         await flowDynamic("🥪 *Has seleccionado la opción de Sándwiches* 🥪");
         return gotoFlow(flowMenuSandwiches);
       } else if (respuesta.includes("3") || respuesta.includes("empa")) {
-        pedidoActual.tipo = "Empanadas";
+        await state.update({
+          pedidoActual: { ...currentPedido, tipo: "Empanadas" },
+        });
         await flowDynamic("🥟 *Has seleccionado la opción de Empanadas* 🥟");
         return gotoFlow(flowMenuEmpanadas);
       } else if (
         respuesta.includes("4") ||
-        respuesta.includes("gas") ||
+        respuesta.includes("bebida") ||
         respuesta.includes("gaseosa") ||
         respuesta.includes("agua") ||
-        respuesta.includes("bebida") ||
-        respuesta.includes("cerveza") ||
-        respuesta.includes("tomar")
+        respuesta.includes("cerveza")
       ) {
-        pedidoActual.tipo = "Gaseosas";
-        await flowDynamic(
-          "🥤 *Has seleccionado la opción de Gaseosas, Aguas Saborizadas y Bebidas* 🥤"
-        );
+        await state.update({
+          pedidoActual: { ...currentPedido, tipo: "Bebidas" },
+        });
+        await flowDynamic("🥤 *Has seleccionado el menú de Bebidas* 🥤");
         return gotoFlow(flowGaseosas);
       } else if (
         respuesta.includes("5") ||
-        respuesta.includes("consulta") ||
+        respuesta.includes("panaderia") ||
+        respuesta.includes("pan")
+      ) {
+        await state.update({
+          pedidoActual: { ...currentPedido, tipo: "Panadería" },
+        });
+        await flowDynamic("🥐 *Has seleccionado el menú de Panadería* 🥖");
+        return gotoFlow(flowPanaderia);
+      } else if (respuesta.includes("6") || respuesta.includes("pasta")) {
+        await state.update({
+          pedidoActual: { ...currentPedido, tipo: "Pastas" },
+        });
+        await flowDynamic("🍝 *Has seleccionado el menú de Pastas* 🧀");
+        return gotoFlow(flowPastas);
+      } else if (
+        respuesta.includes("7") ||
         respuesta.includes("empleado") ||
-        respuesta.includes("duda") ||
-        respuesta.includes("pregunta") ||
+        respuesta.includes("consulta") ||
         respuesta.includes("ayuda")
       ) {
-        await flowDynamic("🧑‍💼 *Has solicitado hablar con un empleado.*");
+        await flowDynamic("🧑‍💼 *Conectándote con un empleado...*");
         return gotoFlow(flowConsultas);
       } else {
         return fallBack(
-          "❌ *Opción no válida.* Por favor, selecciona una de las siguientes opciones:\n\n" +
+          "❌ *Opción no válida.* Selecciona:\n\n" +
             "1️⃣ Pizzería 🍕\n" +
-            "2️⃣ Sándwiches 🥪\n" +
+            "2️⃣ Hamburguesas/Alitos 🥪\n" +
             "3️⃣ Empanadas 🥟\n" +
-            "4️⃣ Gaseosas y Bebidas 🥤\n" +
-            "5️⃣ Hablar con un empleado 🧑‍💼"
+            "4️⃣ Bebidas 🥤\n" +
+            "5️⃣ Panadería 🥐\n" +
+            "6️⃣ Pastas 🍝\n" +
+            "7️⃣ Hablar con empleado 🧑‍💼"
         );
       }
     }
