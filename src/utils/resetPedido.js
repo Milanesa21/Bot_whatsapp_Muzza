@@ -2,6 +2,7 @@
 const resetPedido = async (state) => {
   await state.update({
     pedidoActual: {
+      // Estructura inicial del pedido
       tipo: null,
       items: [],
       delivery: false,
@@ -16,9 +17,10 @@ const resetPedido = async (state) => {
 };
 
 const getPedidoActual = async (state) => {
-  const currentState = await state.getMyState();
+  const currentState = await state.getMyState(); // Obtiene el estado ACTUAL del usuario
   return (
     currentState?.pedidoActual || {
+      // Si no existe, devuelve estructura inicial
       tipo: null,
       items: [],
       delivery: false,

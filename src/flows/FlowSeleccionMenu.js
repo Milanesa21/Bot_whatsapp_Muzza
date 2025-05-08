@@ -26,7 +26,7 @@ const flowSeleccionarMenu = addKeyword(EVENTS.ACTION).addAnswer(
     if (
       seleccion == "2" ||
       seleccion.includes("Hamburguesas") ||
-      seleccion.includes("Hamburguesas")
+      seleccion.includes("Alito")
     ) {
       await state.update({
         pedidoActual: { ...currentPedido, tipo: "Hamburguesas/Alitos" },
@@ -81,7 +81,7 @@ const flowSeleccionarMenu = addKeyword(EVENTS.ACTION).addAnswer(
     return fallBack(
       "❌ *Opción no válida.* Por favor, selecciona una de las siguientes opciones:\n\n" +
         "1️⃣ 🍕 Pizzas\n" +
-        "2️⃣ 🥪 Sándwiches\n" +
+        "2️⃣ 🥪 Hamburguesas/Alitos\n" +
         "3️⃣ 🥟 Empanadas\n" +
         "4️⃣ 🥤 Bebidas\n" +
         "5️⃣ 🥐 Panadería\n" +
