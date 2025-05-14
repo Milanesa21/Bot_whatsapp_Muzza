@@ -1,6 +1,7 @@
 const { addKeyword, EVENTS } = require("@bot-whatsapp/bot");
 const { getPedidoActual } = require("../utils/resetPedido");
-const flowAgregarMas = require("./FlowAgregarmas");
+const flowCantidad = require("./FlowCantidad");
+const flowSeleccionMenu = require("./FlowSeleccionMenu");
 
 const menuPanaderia = {
   1: { nombre: "Palmeritas", precio: 3000, unidad: "unidad" },
@@ -29,30 +30,35 @@ const menuPanaderia = {
   24: { nombre: "Pan integral", precio: 3000, unidad: "unidad" },
   25: { nombre: "Pan blanco", precio: 2500, unidad: "unidad" },
   26: { nombre: "Sandwiches de masa madre", precio: 6000, unidad: "unidad" },
-  27: { nombre: "Sandwiches de miga clásicos x6", precio: 5000, unidad: "unidad" },
-  28: { nombre: "Sandwiches de miga integral x6", precio: 6000, unidad: "unidad" },
+  27: {
+    nombre: "Sandwiches de miga clásicos x6",
+    precio: 5000,
+    unidad: "unidad",
+  },
+  28: {
+    nombre: "Sandwiches de miga integral x6",
+    precio: 6000,
+    unidad: "unidad",
+  },
   29: { nombre: "Sandwiches de miga verduras", precio: 6000, unidad: "unidad" },
 };
 
 const generarMenuTexto = () => {
   let menuTexto = "🥐 *MENÚ DE PANADERÍA* 🥖\n\n";
   menuTexto += "Todos los productos se venden por unidad\n\n";
-  
   menuTexto += "🍱 *Bandejitas y dulces:*\n";
   for (let i = 1; i <= 9; i++) {
     menuTexto += `${i}. ${menuPanaderia[i].nombre} - $${menuPanaderia[i].precio} c/u\n`;
   }
-
   menuTexto += "\n🍞 *Masas secas saladas:*\n";
   for (let i = 10; i <= 12; i++) {
     menuTexto += `${i}. ${menuPanaderia[i].nombre} - $${menuPanaderia[i].precio} c/u\n`;
   }
-
   menuTexto += "\n🏪 *Productos varios:*\n";
   for (let i = 13; i <= 29; i++) {
     menuTexto += `${i}. ${menuPanaderia[i].nombre} - $${menuPanaderia[i].precio} c/u\n`;
   }
-
+  menuTexto += "\n0. Cancelar y volver al menú principal";
   return menuTexto;
 };
 
@@ -61,73 +67,36 @@ const validarSeleccion = (seleccion, opciones) => {
   return !isNaN(opcion) && opciones.includes(opcion);
 };
 
-const flowPanaderia = addKeyword(EVENTS.ACTION)
-  .addAnswer(
-    generarMenuTexto(),
-    { capture: true },
-    async (ctx, { flowDynamic, fallBack, state }) => {
-      const seleccion = ctx.body;
-      const currentPedido = await getPedidoActual(state);
+const flowPanaderia = addKeyword(EVENTS.ACTION).addAnswer(
+  generarMenuTexto(),
+  { capture: true },
+  async (ctx, { flowDynamic, fallBack, state, gotoFlow }) => {
+    const seleccion = ctx.body.trim();
 
-      if (!validarSeleccion(seleccion, Object.keys(menuPanaderia).map(Number))) {
-        return fallBack("❌ Por favor, selecciona una opción válida (1-29)");
-      }
-
-      const opcion = parseInt(seleccion);
-      const producto = menuPanaderia[opcion];
-
-      await state.update({
-        pedidoActual: {
-          ...currentPedido,
-          ultimoProducto: producto
-        }
-      });
-
-      await flowDynamic(`✅ Has seleccionado: *${producto.nombre}*`);
-      return "¿Cuántas unidades deseas?";
+    if (seleccion === "0") {
+      await flowDynamic("🚫 Operación cancelada. Volviendo al menú principal.");
+      return gotoFlow(require("./FlowSeleccionMenu"));
     }
-  )
-  .addAnswer(
-    "Ingresa la cantidad:",
-    { capture: true },
-    async (ctx, { flowDynamic, fallBack, gotoFlow, state }) => {
-      const cantidad = parseInt(ctx.body);
-      const currentPedido = await getPedidoActual(state);
-      const producto = currentPedido.ultimoProducto;
 
-      if (isNaN(cantidad) || cantidad <= 0) {
-        return fallBack("❌ Ingresa un número válido (ej: 1, 2, 3...)");
-      }
-
-      const precioTotal = producto.precio * cantidad;
-      const nuevoItem = {
-        nombre: producto.nombre,
-        cantidad,
-        precioUnitario: producto.precio,
-        precioTotal: precioTotal,
-        unidad: "unidad"
-      };
-
-      const nuevosItems = [...currentPedido.items, nuevoItem];
-
-      await state.update({
-        pedidoActual: {
-          ...currentPedido,
-          items: nuevosItems,
-          total: currentPedido.total + precioTotal,
-          ultimoProducto: null
-        }
-      });
-
-      await flowDynamic(
-        `🛒 Agregado: ${cantidad} unidad(es) de *${producto.nombre}*\n` +
-        `💰 Precio unitario: $${producto.precio}\n` +
-        `💵 Total parcial: $${precioTotal}\n` +
-        `📦 Total acumulado: $${currentPedido.total + precioTotal}`
-      );
-
-      return gotoFlow(flowAgregarMas);
+    const opcionesValidas = Object.keys(menuPanaderia).map(Number);
+    if (!validarSeleccion(seleccion, opcionesValidas)) {
+      return fallBack("❌ Por favor, selecciona una opción válida (0-29)");
     }
-  );
+
+    const opcion = parseInt(seleccion);
+    const producto = menuPanaderia[opcion];
+    const currentPedido = await getPedidoActual(state);
+
+    await state.update({
+      pedidoActual: {
+        ...currentPedido,
+        ultimoProducto: producto, 
+      },
+    });
+
+    await flowDynamic(`✅ Has seleccionado: *${producto.nombre}*`);
+    return gotoFlow(require("./FlowCantidad")); 
+  }
+);
 
 module.exports = flowPanaderia;

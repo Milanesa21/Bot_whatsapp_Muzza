@@ -1,6 +1,6 @@
 const { addKeyword, EVENTS } = require("@bot-whatsapp/bot");
 const { getPedidoActual } = require("../utils/resetPedido");
-const flowAgregarMas = require("./FlowAgregarmas");
+
 
 const menuBebidas = {
   1: { nombre: "PEPSI 1.5L", precio: 4300 },
@@ -34,6 +34,7 @@ const generarMenuTexto = () => {
   for (const [key, value] of Object.entries(menuBebidas)) {
     menuTexto += `${key}. ${value.nombre} - $${value.precio}\n`;
   }
+  menuTexto += "\n0. Cancelar y volver al menú principal";
   return menuTexto;
 };
 
@@ -42,76 +43,38 @@ const validarSeleccion = (seleccion, opciones) => {
   return !isNaN(opcion) && opciones.includes(opcion);
 };
 
-const flowGaseosas = addKeyword(EVENTS.ACTION)
-  .addAnswer(
-    generarMenuTexto(),
-    { capture: true },
-    async (ctx, { flowDynamic, fallBack, state }) => {
-      const seleccion = ctx.body;
-      const currentPedido = await getPedidoActual(state);
+const flowGaseosas = addKeyword(EVENTS.ACTION).addAnswer(
+  generarMenuTexto(),
+  { capture: true },
+  async (ctx, { flowDynamic, fallBack, state, gotoFlow }) => {
+    const seleccion = ctx.body.trim();
 
-      if (!validarSeleccion(seleccion, Object.keys(menuBebidas).map(Number))) {
-        return fallBack("❌ Por favor, selecciona una opción válida (1-23).");
-      }
-
-      const opcion = parseInt(seleccion);
-      const bebida = menuBebidas[opcion];
-
-      await state.update({
-        pedidoActual: {
-          ...currentPedido,
-          ultimoProducto: bebida,
-        },
-      });
-
-      await flowDynamic(
-        `🥤 Has seleccionado *${bebida.nombre}* ($${bebida.precio}).`
-      );
-      return "¿Cuántas unidades deseas?";
+    if (seleccion === "0") {
+      await flowDynamic("🚫 Operación cancelada. Volviendo al menú principal.");
+      return gotoFlow(require("./FlowSeleccionMenu"));
     }
-  )
-  .addAnswer(
-    "Ingresa la cantidad:",
-    { capture: true },
-    async (ctx, { flowDynamic, fallBack, gotoFlow, state }) => {
-      const cantidad = parseInt(ctx.body);
-      const currentPedido = await getPedidoActual(state);
 
-      if (isNaN(cantidad) || cantidad <= 0) {
-        return fallBack("❌ Por favor, ingresa un número válido (1 o más).");
-      }
-
-      const bebida = currentPedido.ultimoProducto;
-      const precioTotal = bebida.precio * cantidad;
-
-      const nuevosItems = [
-        ...currentPedido.items,
-        {
-          nombre: bebida.nombre,
-          cantidad,
-          precioUnitario: bebida.precio,
-          precioTotal,
-        },
-      ];
-
-      await state.update({
-        pedidoActual: {
-          ...currentPedido,
-          items: nuevosItems,
-          total: currentPedido.total + precioTotal,
-          ultimoProducto: null,
-        },
-      });
-
-      await flowDynamic(
-        `✅ Has agregado ${cantidad} unidad(es) de *${bebida.nombre}*.\n` +
-          `💰 Precio unitario: $${bebida.precio}\n` +
-          `💵 Total por este ítem: $${precioTotal}\n\n` +
-          `🛒 Total acumulado: $${currentPedido.total + precioTotal}`
-      );
-
-      return gotoFlow(require("./FlowAgregarmas"));
+    const opcionesValidas = Object.keys(menuBebidas).map(Number);
+    if (!validarSeleccion(seleccion, opcionesValidas)) {
+      return fallBack("❌ Por favor, selecciona una opción válida (0-23)");
     }
-  );
+
+    const opcion = parseInt(seleccion);
+    const bebida = menuBebidas[opcion];
+    const currentPedido = await getPedidoActual(state);
+
+    await state.update({
+      pedidoActual: {
+        ...currentPedido,
+        ultimoProducto: bebida, // Enviamos el objeto completo al flowCantidad
+      },
+    });
+
+    await flowDynamic(
+      `🥤 Has seleccionado *${bebida.nombre}* ($${bebida.precio}).`
+    );
+    return gotoFlow(require("./FlowCantidad")); 
+  }
+);
 
 module.exports = flowGaseosas;

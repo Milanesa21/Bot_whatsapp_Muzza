@@ -35,6 +35,7 @@ const FlowSeleccionMenu = require("./src/flows/FlowSeleccionMenu");
 const flowGaseosas = require("./src/flows/flowGaseosa");
 const flowPastas = require("./src/flows/flowPastas");
 const flowPanaderia = require("./src/flows/FlowPanaderia")
+const flowCantidad = require("./src/flows/FlowCantidad")
 
 const flujos = [
   flowPrincipal,
@@ -58,6 +59,7 @@ const flujos = [
   flowGaseosas,
   flowPastas,
   flowPanaderia,
+  flowCantidad,
 ];
 const app = express();
 app.set("trust proxy", true);

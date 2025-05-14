@@ -1,41 +1,42 @@
 const { addKeyword, EVENTS } = require("@bot-whatsapp/bot");
 const { getPedidoActual } = require("../utils/resetPedido");
-const flowAgregarMas = require("./FlowAgregarmas");
+const flowCantidad = require("./FlowCantidad");
+const flowSeleccionMenu = require("./FlowSeleccionMenu");
 
 const menuEmpanadas = {
-  1: "Empanada de Jamón y Queso",
-  2: "Empanada de Roquefort",
-  3: "Empanada de Champiñón",
-  4: "Empanada de Pollo",
-  5: "Empanada de Napolitana",
-  6: "Empanada de Palmitos",
-  7: "Empanada de Huevos",
-  8: "Empanada de Muzzarella",
-  9: "Empanada de Choclo",
-  10: "Empanada de Cebolla",
-  11: "Empanada de Verduras",
-  12: "Empanada de Fontina",
-  13: "Empanada de Capresse",
-  14: "Empanada Árabes",
-  15: "Empanada de Charque",
-  16: "Empanada de Calabresa",
-  17: "Empanada de Carne",
-  18: "Empanada de Osobuco",
-  19: "Empanada de Maturre",
-  20: "Empanada de Vacío y Provoleta",
-  21: "Empanada de Carne Dulce",
-  22: "Empanada de Carne Picante",
-  23: "Empanada de Carne y Pasas",
-  24: "Empanada de Carne y Aceitunas",
+  1: { nombre: "Empanada de Jamón y Queso", precio: 1700 },
+  2: { nombre: "Empanada de Roquefort", precio: 1700 },
+  3: { nombre: "Empanada de Champiñón", precio: 1700 },
+  4: { nombre: "Empanada de Pollo", precio: 1700 },
+  5: { nombre: "Empanada de Napolitana", precio: 1700 },
+  6: { nombre: "Empanada de Palmitos", precio: 1700 },
+  7: { nombre: "Empanada de Huevos", precio: 1700 },
+  8: { nombre: "Empanada de Muzzarella", precio: 1700 },
+  9: { nombre: "Empanada de Choclo", precio: 1700 },
+  10: { nombre: "Empanada de Cebolla", precio: 1700 },
+  11: { nombre: "Empanada de Verduras", precio: 1700 },
+  12: { nombre: "Empanada de Fontina", precio: 1700 },
+  13: { nombre: "Empanada de Capresse", precio: 1700 },
+  14: { nombre: "Empanada Árabes", precio: 1700 },
+  15: { nombre: "Empanada de Charque", precio: 1700 },
+  16: { nombre: "Empanada de Calabresa", precio: 1700 },
+  17: { nombre: "Empanada de Carne", precio: 1700 },
+  18: { nombre: "Empanada de Osobuco", precio: 1700 },
+  19: { nombre: "Empanada de Maturre", precio: 1700 },
+  20: { nombre: "Empanada de Vacío y Provoleta", precio: 1700 },
+  21: { nombre: "Empanada de Carne Dulce", precio: 1700 },
+  22: { nombre: "Empanada de Carne Picante", precio: 1700 },
+  23: { nombre: "Empanada de Carne y Pasas", precio: 1700 },
+  24: { nombre: "Empanada de Carne y Aceitunas", precio: 1700 },
 };
 
 const generarMenuTexto = () => {
   let texto = "🥟 *MENÚ DE EMPANADAS* 🥟\n\n";
-  texto += "Elige una opción por número:\n\n";
-  for (const [key, nombre] of Object.entries(menuEmpanadas)) {
+  texto += "Elige una opción por número ($1700 c/u):\n\n";
+  for (const [key, { nombre }] of Object.entries(menuEmpanadas)) {
     texto += `${key}. ${nombre}\n`;
   }
-  texto += "\nCada empanada cuesta $1700.";
+  texto += "\n0. Cancelar y volver al menú principal";
   return texto;
 };
 
@@ -44,74 +45,36 @@ const validarSeleccion = (seleccion, opciones) => {
   return !isNaN(opcion) && opciones.includes(opcion);
 };
 
-const flowMenuEmpanadas = addKeyword(EVENTS.ACTION)
-  .addAnswer(
-    generarMenuTexto(),
-    { capture: true },
-    async (ctx, { flowDynamic, fallBack, state }) => {
-      const seleccion = ctx.body;
-      const currentPedido = await getPedidoActual(state);
+const flowMenuEmpanadas = addKeyword(EVENTS.ACTION).addAnswer(
+  generarMenuTexto(),
+  { capture: true },
+  async (ctx, { flowDynamic, fallBack, state, gotoFlow }) => {
+    const seleccion = ctx.body.trim();
 
-      if (
-        !validarSeleccion(seleccion, Object.keys(menuEmpanadas).map(Number))
-      ) {
-        return fallBack("❌ Por favor, selecciona una opción válida (1-24)");
-      }
-
-      const opcion = parseInt(seleccion);
-      const empanadaSeleccionada = menuEmpanadas[opcion];
-
-      await state.update({
-        pedidoActual: {
-          ...currentPedido,
-          ultimoProducto: empanadaSeleccionada,
-        },
-      });
-
-      await flowDynamic(`🥟 Has seleccionado *${empanadaSeleccionada}*.`);
-      return "¿Cuántas unidades deseas?";
+    if (seleccion === "0") {
+      await flowDynamic("🚫 Operación cancelada. Volviendo al menú principal.");
+      return gotoFlow(require("./FlowSeleccionMenu"));
     }
-  )
-  .addAnswer(
-    "Ingresa la cantidad:",
-    { capture: true },
-    async (ctx, { flowDynamic, fallBack, gotoFlow, state }) => {
-      const cantidad = parseInt(ctx.body);
-      const currentPedido = await getPedidoActual(state);
 
-      if (isNaN(cantidad) || cantidad <= 0) {
-        return fallBack("❌ Ingresa un número válido (1 o más).");
-      }
-
-      const precioUnitario = 1700;
-      const precioTotal = precioUnitario * cantidad;
-      const nuevoItem = {
-        nombre: currentPedido.ultimoProducto,
-        cantidad,
-        precioUnitario,
-        precioTotal,
-      };
-
-      const nuevosItems = [...currentPedido.items, nuevoItem];
-
-      await state.update({
-        pedidoActual: {
-          ...currentPedido,
-          items: nuevosItems,
-          total: currentPedido.total + precioTotal,
-          ultimoProducto: null,
-        },
-      });
-
-      await flowDynamic(
-        `✅ Agregadas ${cantidad} empanada(s) de *${nuevoItem.nombre}*\n` +
-          `💰 Precio unitario: $${precioUnitario}\n` +
-          `💵 Total por este ítem: $${precioTotal}\n` +
-          `🛒 Total acumulado: $${currentPedido.total + precioTotal}`
-      );
-
-      return gotoFlow(require("./FlowAgregarmas"));
+    const opcionesValidas = Object.keys(menuEmpanadas).map(Number);
+    if (!validarSeleccion(seleccion, opcionesValidas)) {
+      return fallBack("❌ Por favor, selecciona una opción válida (0-24)");
     }
-  );
+
+    const opcion = parseInt(seleccion);
+    const empanada = menuEmpanadas[opcion];
+    const currentPedido = await getPedidoActual(state);
+
+    await state.update({
+      pedidoActual: {
+        ...currentPedido,
+        ultimoProducto: empanada, // Guardamos el objeto completo con precio
+      },
+    });
+
+    await flowDynamic(`🥟 Has seleccionado *${empanada.nombre}*`);
+    return gotoFlow(require("./FlowCantidad")); // Redirigimos al flow de cantidad unificado
+  }
+);
 
 module.exports = flowMenuEmpanadas;
