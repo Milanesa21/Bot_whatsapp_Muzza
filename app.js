@@ -10,6 +10,11 @@ const BaileysProvider = require("@bot-whatsapp/provider/baileys");
 const MockAdapter = require("@bot-whatsapp/database/json");
 const QRPortalWeb = require("@bot-whatsapp/portal");
 
+
+// --- INICIO Integración Health Reporter ---
+const { startHealthReporting, stopHealthReporting } = require("./healthReporter");
+// --- FIN Integración Health Reporter ---
+
 const pedidosRoutes = require("./routes/pedidosRoutes");
 const { inicializarBaseDeDatos } = require("./db");
 
@@ -152,11 +157,50 @@ const main = async () => {
       database: adapterDB,
     });
 
+    // --- INICIO Integración Health Reporter ---
+    startHealthReporting(adapterProvider);
+
+    process.on("exit", (code) => {
+      console.log(
+        `Proceso 'exit' detectado con código: ${code}. Deteniendo Health Reporter...`
+      );
+      stopHealthReporting();
+    });
+    process.on("SIGINT", () => {
+      console.log(
+        "Señal 'SIGINT' (Ctrl+C) detectada. Deteniendo Health Reporter y saliendo..."
+      );
+      stopHealthReporting();
+      process.exit(0); // Salida limpia
+    });
+    process.on("SIGTERM", () => {
+      console.log(
+        "Señal 'SIGTERM' detectada. Deteniendo Health Reporter y saliendo..."
+      );
+      stopHealthReporting();
+      process.exit(0); // Salida limpia
+    });
+    process.on("uncaughtException", (error, origin) => {
+      console.error(`Excepción no capturada: ${error}\n` + `Origen: ${origin}`);
+      stopHealthReporting();
+      process.exit(1); // Salida con error
+    });
+    process.on("unhandledRejection", (reason, promise) => {
+      console.error(
+        "Rechazo de promesa no manejado en:",
+        promise,
+        "razón:",
+        reason
+      );
+      stopHealthReporting();
+      process.exit(1); // Salida con error
+    });
+    // --- FIN Integración Health Reporter ---
+
     const PORT = process.env.PORT || 7000;
     server.listen(PORT, "0.0.0.0", () => {
       console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
     });
-
 
     if (process.env.NODE_ENV !== "production") {
       QRPortalWeb({ port: 5000 });
