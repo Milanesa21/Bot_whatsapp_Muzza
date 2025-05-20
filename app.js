@@ -4,16 +4,11 @@ const express = require("express");
 const cors = require("cors");
 const http = require("http");
 const fs = require("fs");
-const { init: initSocket } = require("./socket");   
+const { init: initSocket } = require("./socket");
 const { createBot, createProvider, createFlow } = require("@bot-whatsapp/bot");
 const BaileysProvider = require("@bot-whatsapp/provider/baileys");
 const MockAdapter = require("@bot-whatsapp/database/json");
 const QRPortalWeb = require("@bot-whatsapp/portal");
-
-
-// --- INICIO Integración Health Reporter ---
-const { startHealthReporting, stopHealthReporting } = require("./healthReporter");
-// --- FIN Integración Health Reporter ---
 
 const pedidosRoutes = require("./routes/pedidosRoutes");
 const { inicializarBaseDeDatos } = require("./db");
@@ -39,8 +34,8 @@ const flowConsultas = require("./src/flows/FlowConsultas");
 const FlowSeleccionMenu = require("./src/flows/FlowSeleccionMenu");
 const flowGaseosas = require("./src/flows/flowGaseosa");
 const flowPastas = require("./src/flows/flowPastas");
-const flowPanaderia = require("./src/flows/FlowPanaderia")
-const flowCantidad = require("./src/flows/FlowCantidad")
+const flowPanaderia = require("./src/flows/FlowPanaderia");
+const flowCantidad = require("./src/flows/FlowCantidad");
 
 const flujos = [
   flowPrincipal,
@@ -105,9 +100,9 @@ const server = http.createServer(app);
 const io = initSocket(server, {
   origin: [
     "http://localhost:3000",
-    "https://frontpedidosmuzza-production.up.railway.app"
+    "https://frontpedidosmuzza-production.up.railway.app",
   ],
-  methods: ["GET","POST","PUT","DELETE","OPTIONS"]
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 });
 app.use((req, res, next) => {
   req.io = io;
@@ -156,46 +151,6 @@ const main = async () => {
       provider: adapterProvider,
       database: adapterDB,
     });
-
-    // --- INICIO Integración Health Reporter ---
-    startHealthReporting(adapterProvider);
-
-    process.on("exit", (code) => {
-      console.log(
-        `Proceso 'exit' detectado con código: ${code}. Deteniendo Health Reporter...`
-      );
-      stopHealthReporting();
-    });
-    process.on("SIGINT", () => {
-      console.log(
-        "Señal 'SIGINT' (Ctrl+C) detectada. Deteniendo Health Reporter y saliendo..."
-      );
-      stopHealthReporting();
-      process.exit(0); // Salida limpia
-    });
-    process.on("SIGTERM", () => {
-      console.log(
-        "Señal 'SIGTERM' detectada. Deteniendo Health Reporter y saliendo..."
-      );
-      stopHealthReporting();
-      process.exit(0); // Salida limpia
-    });
-    process.on("uncaughtException", (error, origin) => {
-      console.error(`Excepción no capturada: ${error}\n` + `Origen: ${origin}`);
-      stopHealthReporting();
-      process.exit(1); // Salida con error
-    });
-    process.on("unhandledRejection", (reason, promise) => {
-      console.error(
-        "Rechazo de promesa no manejado en:",
-        promise,
-        "razón:",
-        reason
-      );
-      stopHealthReporting();
-      process.exit(1); // Salida con error
-    });
-    // --- FIN Integración Health Reporter ---
 
     const PORT = process.env.PORT || 7000;
     server.listen(PORT, "0.0.0.0", () => {
